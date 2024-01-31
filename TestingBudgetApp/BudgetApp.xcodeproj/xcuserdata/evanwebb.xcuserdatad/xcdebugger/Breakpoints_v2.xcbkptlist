@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "A2175ACA-A0F3-4331-9FDA-834A582AB5A0"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BudgetApp/Transactions/Services/TransactionService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "deleteTransaction(id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 299f78d24dca5897"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - bd781e8d8d4fb589"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 7c7aa6feebf09c95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 6988f388c40c3e92"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 299f78d24dca5870"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - bd781e8d8d4fb56e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 7c7aa6feebf09c72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "AFAC908C-0DF0-47EE-9051-FFD97C826E7D - 6988f388c40c3e75"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for BudgetApp.TransactionService.deleteTransaction(id: Foundation.UUID) async -&gt; Swift.Bool"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Transactions/Services/TransactionService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "96">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B08E4D6C-5190-4C44-B514-88808091C759"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BudgetApp/Core/Data/API/RequestProtocol.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "createURLRequest(authToken:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE22B73C-7E04-4B83-853F-AE7EDCAB7C64"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BudgetApp/Core/Data/API/RequestProtocol.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "createURLRequest(authToken:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "455D8E2C-5103-4351-90D2-FFB636F203C0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BudgetApp/Core/Data/API/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "perform(_:authToken:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "455D8E2C-5103-4351-90D2-FFB636F203C0 - 224a77518688f1d6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for BudgetApp.APIManager.perform(_: BudgetApp.RequestProtocol, authToken: Swift.String) async throws -&gt; Foundation.Data"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Core/Data/API/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "220">
+               </Location>
+               <Location
+                  uuid = "455D8E2C-5103-4351-90D2-FFB636F203C0 - 224a77518688f1d6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for BudgetApp.APIManager.perform(_: BudgetApp.RequestProtocol, authToken: Swift.String) async throws -&gt; Foundation.Data"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Core/Data/API/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "455D8E2C-5103-4351-90D2-FFB636F203C0 - 224a77518688f194"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for BudgetApp.APIManager.perform(_: BudgetApp.RequestProtocol, authToken: Swift.String) async throws -&gt; Foundation.Data"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/Core/Data/API/APIManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "220">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "614A2360-C317-425B-A9C1-FB6805649597"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BudgetApp/BudgetCategories/ViewModels/CreateBudgetCategoryViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "createBudgetCategory(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "614A2360-C317-425B-A9C1-FB6805649597 - fc5ff036f0eec8e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetApp.CreateBudgetCategoryViewModel.createBudgetCategory(for: BudgetApp.Budget) async -&gt; ()"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/BudgetCategories/ViewModels/CreateBudgetCategoryViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "292">
+               </Location>
+               <Location
+                  uuid = "614A2360-C317-425B-A9C1-FB6805649597 - 12ab8e2cdc79576"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for BudgetApp.CreateBudgetCategoryViewModel.createBudgetCategory(for: BudgetApp.Budget) async -&gt; ()"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/BudgetCategories/ViewModels/CreateBudgetCategoryViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "614A2360-C317-425B-A9C1-FB6805649597 - fc5ff036f0eec80c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetApp.CreateBudgetCategoryViewModel.createBudgetCategory(for: BudgetApp.Budget) async -&gt; ()"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/BudgetCategories/ViewModels/CreateBudgetCategoryViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "614A2360-C317-425B-A9C1-FB6805649597 - 12ab8e2cdc79599"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for BudgetApp.CreateBudgetCategoryViewModel.createBudgetCategory(for: BudgetApp.Budget) async -&gt; ()"
+                  moduleName = "BudgetApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evanwebb/Documents/Development/BudgetApp/BudgetApp/BudgetApp/BudgetCategories/ViewModels/CreateBudgetCategoryViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
