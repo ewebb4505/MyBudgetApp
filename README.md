@@ -8,4 +8,4 @@
 ### Objectives of this project.
 1. Practice SwiftUI and explore functionality that I haven't been able to use at work.
 2. Create a Swift based server for the app using Vapor 4.
-3. Use Firebase (newbie here)
+3. Use Firebase (use it for testing builds and remote configuration at work but haven't personally used it)
