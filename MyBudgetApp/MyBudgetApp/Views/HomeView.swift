@@ -54,14 +54,25 @@ struct HomeView: View {
             })
             .navigationTitle("MyBudget App")
             .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup {
                     Button {
                         
                     } label: {
                         Image(systemName: "person.crop.circle")
                     }
+                    
+                    if vm.appEnv.showDebugSettings {
+                        Button {
+                            vm.appEnv.showDebugMenu = true
+                        } label: {
+                            Image(systemName: "gearshape")
+                        }
+                    }
                 }
             })
+            .sheet(isPresented: $vm.appEnv.showDebugMenu) {
+                DebugView()
+            }
         }
         .transparentNonAnimatingFullScreenCover(isPresented: $showingFullScreenCover, content: {
             VStack {

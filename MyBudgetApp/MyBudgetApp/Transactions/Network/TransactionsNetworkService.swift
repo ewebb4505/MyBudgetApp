@@ -45,7 +45,9 @@ struct TransactionsNetworkService: TransactionsNetworkServiceProtocol {
     }
     
     func createTransaction(title: String, amount: Double, date: Date, tags: [Tag]) async -> Transaction? {
-        let requestData = TransactionsRequest.createTransactions(title, amount, date)
+        let requestData = TransactionsRequest.createTransactions(title,
+                                                                 amount,
+                                                                 date, tags.map({$0.id}))
         do {
             let transaction: Transaction = try await requestManager.perform(requestData)
             return transaction

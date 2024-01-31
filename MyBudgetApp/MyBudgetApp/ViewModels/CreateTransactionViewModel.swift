@@ -45,7 +45,10 @@ class CreateTransactionViewModel: ObservableObject {
         guard let amount = Double((isExpense ? "-" + amountInput : amountInput)) else {
             return
         }
-        let result = await transactionNetworkService.createTransaction(title: titleInput, amount: amount, date: dateInput)
+        let result = await transactionNetworkService.createTransaction(title: titleInput, 
+                                                                       amount: amount,
+                                                                       date: dateInput, 
+                                                                       tags: tags)
         if let transaction = result {
             addedTransactions.append(transaction)
         } else {

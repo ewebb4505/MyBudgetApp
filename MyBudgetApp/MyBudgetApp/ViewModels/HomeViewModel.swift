@@ -24,6 +24,9 @@ class HomeViewModel: ObservableObject {
     let transactionsNetworkService: TransactionsNetworkServiceProtocol
     let tagsNetworkService: TagsNetworkServiceProtocol
     
+    //app state
+    var appEnv = AppEnvironmentManager.instance
+    
     init(budgetNetworkService: BudgetNetworkServiceProtocol = BudgetNetworkService(requestManager: RequestManager()), transactionsNetworkService: TransactionsNetworkServiceProtocol = TransactionsNetworkService(requestManager: RequestManager()), tagsNetworkService: TagsNetworkServiceProtocol = TagsNetworkService(requestManager: RequestManager())) {
         self.budgetNetworkService = budgetNetworkService
         self.transactionsNetworkService = transactionsNetworkService
