@@ -27,6 +27,8 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(CreateBudget())
     app.migrations.add(CreateBudgetCategory())
     app.migrations.add(UpdateTransaction())
+    app.migrations.add(CreateUsers())
+    app.migrations.add(CreateTokens())
     
     app.logger.logLevel = .debug
     try await app.autoMigrate().get()
@@ -37,4 +39,5 @@ public func configure(_ app: Application) async throws {
     try app.register(collection: TransactionTagsController())
     try app.register(collection: BudgetController())
     try app.register(collection: BudgetCategoryController())
+    try app.register(collection: UserController())
 }

@@ -2,3 +2,4 @@ BudgetAppVaporServer/.swiftpm
 BudgetAppVaporServer/.dockerignore
 **/.DS_Store
 **/xcuserdata
+**/.build
