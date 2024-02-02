@@ -10,16 +10,25 @@ import Vapor
 import Fluent
 
 struct UserController: RouteCollection {
-  func boot(routes: RoutesBuilder) throws {
-    let usersRoute = routes.grouped("users")
-    usersRoute.post("signup", use: create)
+    func boot(routes: RoutesBuilder) throws {
+        let usersRoute = routes.grouped("users")
+        usersRoute.post("signup", use: create)
+
+        let tokenProtected = usersRoute.grouped(Token.authenticator())
+        tokenProtected.get("me", use: getMyOwnUser)
+        tokenProtected.post("logout", use: logout)
+
+        let passwordProtected = usersRoute.grouped(User.authenticator())
+        passwordProtected.post("login", use: login)
+    }
     
-    let tokenProtected = usersRoute.grouped(Token.authenticator())
-    tokenProtected.get("me", use: getMyOwnUser)
-    
-    let passwordProtected = usersRoute.grouped(User.authenticator())
-    passwordProtected.post("login", use: login)
-  }
+    fileprivate func logout(req: Request) async throws -> HTTPStatus {
+        guard let id = try? req.auth.require(Token.self).id else {
+            return .alreadyReported
+        }
+        try await Token.query(on: req.db).filter(\.$id == id).delete()
+        return .accepted
+    }
 
   fileprivate func create(req: Request) throws -> EventLoopFuture<NewSession> {
     try UserSignup.validate(content: req)
