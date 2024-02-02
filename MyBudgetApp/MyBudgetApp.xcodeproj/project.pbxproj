@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		01028BF52B6AC7F9003FCC68 /* AppEnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */; };
 		01028BF82B6ACB9C003FCC68 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF72B6ACB9C003FCC68 /* DebugView.swift */; };
+		0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */; };
+		0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */; };
+		0145E2752B6DA36C00201C06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2742B6DA36C00201C06 /* User.swift */; };
+		0145E2772B6DA3BE00201C06 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2762B6DA3BE00201C06 /* AuthRequest.swift */; };
 		0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */; };
 		0158817D2B04549400EB3795 /* FABVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817C2B04549400EB3795 /* FABVew.swift */; };
 		0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */; };
@@ -74,6 +78,10 @@
 /* Begin PBXFileReference section */
 		01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentManager.swift; sourceTree = "<group>"; };
 		01028BF72B6ACB9C003FCC68 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCreateAccountView.swift; sourceTree = "<group>"; };
+		0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0145E2742B6DA36C00201C06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0145E2762B6DA3BE00201C06 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentFullScreenCover.swift; sourceTree = "<group>"; };
 		0158817C2B04549400EB3795 /* FABVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FABVew.swift; sourceTree = "<group>"; };
 		0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -163,6 +171,49 @@
 			path = EnvironmentValues;
 			sourceTree = "<group>";
 		};
+		0145E26F2B6DA34700201C06 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				0145E2732B6DA36100201C06 /* Models */,
+				0145E2722B6DA35B00201C06 /* ViewModels */,
+				0145E2712B6DA35800201C06 /* Views */,
+				0145E2702B6DA35200201C06 /* Network */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		0145E2702B6DA35200201C06 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0145E2762B6DA3BE00201C06 /* AuthRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0145E2712B6DA35800201C06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0145E2722B6DA35B00201C06 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0145E2732B6DA36100201C06 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0145E2742B6DA36C00201C06 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		015881782B04542B00EB3795 /* FullScreenCover */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +278,7 @@
 		018B3E242B015D5C000C2054 /* MyBudgetApp */ = {
 			isa = PBXGroup;
 			children = (
+				0145E26F2B6DA34700201C06 /* Auth */,
 				018B3E592B015E6C000C2054 /* ViewModels */,
 				018B3E582B015E5E000C2054 /* Views */,
 				018B3E522B015D96000C2054 /* Tags */,
@@ -607,8 +659,10 @@
 				0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */,
 				018B3E7C2B01685E000C2054 /* TagsNetworkService.swift in Sources */,
 				018B3E862B0169BF000C2054 /* BudgetCategory.swift in Sources */,
+				0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */,
 				018B3E772B0167F6000C2054 /* TagsNetworkServiceProtocol.swift in Sources */,
 				018B3E7E2B016943000C2054 /* TransactionsNetworkServiceProtocol.swift in Sources */,
+				0145E2772B6DA3BE00201C06 /* AuthRequest.swift in Sources */,
 				018B3E5B2B015EA7000C2054 /* RequestType.swift in Sources */,
 				018B3E8E2B016B83000C2054 /* BudgetCategoryNetworkService.swift in Sources */,
 				018B3E812B016965000C2054 /* Transaction.swift in Sources */,
@@ -626,7 +680,9 @@
 				01028BF82B6ACB9C003FCC68 /* DebugView.swift in Sources */,
 				018B3E672B015FD0000C2054 /* NetworkRequestManager.swift in Sources */,
 				0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */,
+				0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */,
 				018B3E612B015EF0000C2054 /* NetworkError.swift in Sources */,
+				0145E2752B6DA36C00201C06 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
