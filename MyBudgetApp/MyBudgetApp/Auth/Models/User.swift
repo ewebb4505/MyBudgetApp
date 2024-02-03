@@ -7,10 +7,17 @@
 
 import Foundation
 
-class User: Decodable {
-    var name: String
+protocol UserProtocol {
+    var username: String { get }
+    var password: String { get }
+}
+
+class User: UserProtocol, Codable {
+    var username: String
+    var password: String
     
-    init(name: String) {
-        self.name = name
+    init(username: String, password: String) {
+        self.username = username
+        self.password = password
     }
 }

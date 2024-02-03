@@ -14,6 +14,7 @@ protocol RequestProtocol {
     var urlParams: [String: String?] { get }
     var addAuthorizationToken: Bool { get }
     var requestType: RequestType { get }
+    var addBasicAuthHeader: Bool { get }
 }
 
 extension RequestProtocol {
@@ -37,7 +38,7 @@ extension RequestProtocol {
         [:]
     }
     
-    func createURLRequest(authToken: String) throws -> URLRequest {
+    func createURLRequest(authToken: String, username: String, password: String) throws -> URLRequest {
         var components = URLComponents()
         components.scheme = "http"
         components.host = host
@@ -65,6 +66,11 @@ extension RequestProtocol {
         if addAuthorizationToken {
             urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
         }
+        
+        if addBasicAuthHeader {
+            let loginString = "\(username):\(password)".data(using: .utf8)!
+            urlRequest.setValue("Basic \(loginString)", forHTTPHeaderField: "Authorization")
+        }
 
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -73,6 +79,10 @@ extension RequestProtocol {
         }
 
         return urlRequest
+    }
+    
+    var addBasicAuthHeader: Bool {
+        false
     }
 }
 

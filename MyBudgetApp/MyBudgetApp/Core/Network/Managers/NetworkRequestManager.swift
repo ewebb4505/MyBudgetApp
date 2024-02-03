@@ -8,7 +8,10 @@
 import Foundation
 
 protocol NetworkRequestManagerProtocol {
-    func perform(_ request: RequestProtocol, authToken: String) async throws -> Data
+    func perform(_ request: RequestProtocol, 
+                 authToken: String,
+                 username: String,
+                 password: String) async throws -> Data
     func requestToken() async throws -> Data
 }
 
@@ -19,8 +22,13 @@ class NetworkRequestManager: NetworkRequestManagerProtocol {
         self.urlSession = urlSession
     }
 
-    func perform(_ request: RequestProtocol, authToken: String = "") async throws -> Data {
-        let (data, response) = try await urlSession.data(for: request.createURLRequest(authToken: authToken))
+    func perform(_ request: RequestProtocol, 
+                 authToken: String = "",
+                 username: String = "",
+                 password: String = "") async throws -> Data {
+        let (data, response) = try await urlSession.data(for: request.createURLRequest(authToken: authToken,
+                                                                                       username: username,
+                                                                                       password: password))
         
         // TODO: handle errors here a little better.
         guard let httpResponse = response as? HTTPURLResponse,

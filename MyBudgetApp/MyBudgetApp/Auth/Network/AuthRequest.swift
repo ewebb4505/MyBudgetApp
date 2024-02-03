@@ -10,10 +10,20 @@ import Foundation
 enum AuthRequest: RequestProtocol {
     case login(String, String)
     case logout
-    case createAccount(String, String)
+    case signup(String, String)
+    case me
     
     var path: String {
-        ""
+        switch self {
+        case .login(_, _):
+            "/users/login"
+        case .logout:
+            "/users/logout"
+        case .signup(_, _):
+            "/users/signup"
+        case .me:
+            "/users/me"
+        }
     }
     
     var urlParams: [String : String?] {
@@ -21,7 +31,12 @@ enum AuthRequest: RequestProtocol {
     }
     
     var params: [String : Any] {
-        [:]
+        switch self {
+        case .login(_, _), .logout, .me:
+            [:]
+        case .signup(let username, let password):
+            ["username": username, "password": password]
+        }
     }
     
     var requestType: RequestType {
@@ -29,6 +44,24 @@ enum AuthRequest: RequestProtocol {
     }
     
     var addAuthorizationToken: Bool {
-        false
+        switch self {
+        case .login(_, _):
+            false
+        case .logout:
+            true
+        case .signup(_, _):
+            false
+        case .me:
+            true
+        }
+    }
+    
+    var addBasicAuthHeader: Bool {
+        switch self {
+        case .login(_, _):
+            true
+        case .logout, .signup(_, _), .me:
+            false
+        }
     }
 }
