@@ -10,6 +10,7 @@ import Foundation
 enum AuthRequest: RequestProtocol {
     case login(String, String)
     case logout
+    case createAccount(String, String)
     
     var path: String {
         ""

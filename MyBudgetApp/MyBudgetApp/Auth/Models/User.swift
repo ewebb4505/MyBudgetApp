@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User {
+class User: Decodable {
     var name: String
     
     init(name: String) {

@@ -13,6 +13,8 @@
 		0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */; };
 		0145E2752B6DA36C00201C06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2742B6DA36C00201C06 /* User.swift */; };
 		0145E2772B6DA3BE00201C06 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2762B6DA3BE00201C06 /* AuthRequest.swift */; };
+		0145E2792B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2782B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift */; };
+		0145E27B2B6E0C4300201C06 /* AuthNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E27A2B6E0C4300201C06 /* AuthNetworkService.swift */; };
 		0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */; };
 		0158817D2B04549400EB3795 /* FABVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817C2B04549400EB3795 /* FABVew.swift */; };
 		0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */; };
@@ -82,6 +84,8 @@
 		0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0145E2742B6DA36C00201C06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0145E2762B6DA3BE00201C06 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		0145E2782B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		0145E27A2B6E0C4300201C06 /* AuthNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkService.swift; sourceTree = "<group>"; };
 		015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentFullScreenCover.swift; sourceTree = "<group>"; };
 		0158817C2B04549400EB3795 /* FABVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FABVew.swift; sourceTree = "<group>"; };
 		0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				0145E2762B6DA3BE00201C06 /* AuthRequest.swift */,
+				0145E2782B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift */,
+				0145E27A2B6E0C4300201C06 /* AuthNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -672,8 +678,10 @@
 				018B3E5D2B015EBE000C2054 /* RequestProtocol.swift in Sources */,
 				018B3E902B016B9F000C2054 /* BudgetCategoryNetworkServiceProtocol.swift in Sources */,
 				018B3E9A2B01B9C7000C2054 /* TagBadge.swift in Sources */,
+				0145E2792B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift in Sources */,
 				018B3E942B01B451000C2054 /* HomeViewModel.swift in Sources */,
 				018B3E632B015F7F000C2054 /* DataParser.swift in Sources */,
+				0145E27B2B6E0C4300201C06 /* AuthNetworkService.swift in Sources */,
 				0158818D2B04F8C500EB3795 /* IsSelected.swift in Sources */,
 				018B3E722B0165A1000C2054 /* TagsRequest.swift in Sources */,
 				015881812B0457BF00EB3795 /* CreateTransactionView.swift in Sources */,
