@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class LoginCreateAccountViewModel: ObservableObject {
@@ -30,6 +31,12 @@ class LoginCreateAccountViewModel: ObservableObject {
     @Published var viewState: ViewState = .login
     @Published var processingRequest: Bool = false
     
+    var networkService: AuthNetworkServiceProtocol
+    
+    init(networkService: AuthNetworkServiceProtocol = AuthNetworkService(requestManager: RequestManager())) {
+        self.networkService = networkService
+    }
+    
     var isLoginButtonEnabled: Bool {
         !loginNameInput.isEmpty && !loginNamePassword.isEmpty
     }
@@ -42,8 +49,21 @@ class LoginCreateAccountViewModel: ObservableObject {
         return false
     }
     
-    func createAccountButtonTapped() {
+    func createAccountButtonTapped() async -> Bool {
+        guard createAccountPassword == createAccountPasswordCheck else {
+            return false
+        }
+        processingRequest = true
+        guard let response = await networkService.createUser(username: createAccountName,
+                                                             password: createAccountPassword) else {
+            processingRequest = false
+            return false
+        }
         
+        // set user in env here
+        
+        processingRequest = false
+        return true
     }
     
     func submitNewAccountInfo() async -> Bool {

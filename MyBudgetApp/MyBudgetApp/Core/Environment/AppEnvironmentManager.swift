@@ -22,6 +22,21 @@ final class AppEnvironmentManager {
     }
     
     var showDebugMenu: Bool = false
+    var user: User? = nil
     
-    private init() {}
+    private init() {
+        user = UserKeychainManager.getUser(AppEnvironmentManager.getUsername() ?? "")
+    }
+    
+    static func saveUsername(username: String) {
+        UserDefaults.standard.set(username, forKey: "savedUsername")
+    }
+    
+    static func getUsername() -> String? {
+        return UserDefaults.standard.string(forKey: "savedUsername")
+    }
+    
+    static func removeUsername() {
+        UserDefaults.standard.removeObject(forKey: "savedUsername")
+    }
 }

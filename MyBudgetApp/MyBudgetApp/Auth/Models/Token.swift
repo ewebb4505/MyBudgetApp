@@ -9,18 +9,12 @@ import Foundation
 
 protocol TokenProtocol {
     var token: String { get }
-    var createdAt: Date { get }
-    var expiresAt: Date { get }
 }
 
-class Token: TokenProtocol {
+class Token: TokenProtocol, Codable {
     var token: String
-    var createdAt: Date
-    var expiresAt: Date
     
-    init(token: String, createdAt: Date, expiresAt: Date) {
+    init(token: String) {
         self.token = token
-        self.createdAt = createdAt
-        self.expiresAt = expiresAt
     }
 }

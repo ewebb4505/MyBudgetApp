@@ -9,15 +9,24 @@ import Foundation
 
 protocol UserProtocol {
     var username: String { get }
-    var password: String { get }
+    var id: UUID { get }
+    var createdAt: Date { get }
+    var updatedAt: Date { get }
 }
 
 class User: UserProtocol, Codable {
     var username: String
-    var password: String
+    var id: UUID
+    var createdAt: Date
+    var updatedAt: Date
     
-    init(username: String, password: String) {
+    init(username: String,
+         id: UUID,
+         createdAt: Date,
+         updatedAt: Date) {
         self.username = username
-        self.password = password
+        self.id = id
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 }

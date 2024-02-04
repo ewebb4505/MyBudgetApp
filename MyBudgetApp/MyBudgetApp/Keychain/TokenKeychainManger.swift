@@ -60,13 +60,11 @@ class TokenKeychainManager: TokenKeychainManagable {
         if SecItemCopyMatching(query as CFDictionary, &item) == noErr {
             // Extract result
             if let existingItem = item as? [String: Any],
-               let createdAt = existingItem[kSecAttrAccount as String] as? Date,
-               let expiresAt = existingItem[kSecAttrAccount as String] as? Date,
                let tokenData = existingItem[kSecValueData as String] as? Data,
                let token = String(data: tokenData, encoding: .utf8)
             {
                 print(token)
-                return Token(token: token, createdAt: createdAt, expiresAt: expiresAt)
+                return Token(token: token)
             }
             return nil
         } else {

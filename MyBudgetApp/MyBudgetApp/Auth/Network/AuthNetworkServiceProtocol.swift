@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AuthNetworkServiceProtocol {
-    func loginUser(username: String, password: String) async -> User?
+    func loginUser(username: String, password: String) async -> SignUpResponse?
     func logoutUser() async -> Bool
-    func createUser(username: String, password: String) async -> User?
+    func createUser(username: String, password: String) async -> SignUpResponse?
 }

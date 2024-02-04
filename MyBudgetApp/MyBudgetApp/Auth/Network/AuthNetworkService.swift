@@ -10,9 +10,9 @@ import Foundation
 struct AuthNetworkService: AuthNetworkServiceProtocol {
     let requestManager: RequestManagerProtocol
     
-    func loginUser(username: String, password: String) async -> User? {
+    func loginUser(username: String, password: String) async -> SignUpResponse? {
         let req = AuthRequest.login(username, password)
-        let user: User? = try? await requestManager.perform(req)
+        let user: SignUpResponse? = try? await requestManager.perform(req)
         return user
     }
     
@@ -25,9 +25,9 @@ struct AuthNetworkService: AuthNetworkServiceProtocol {
         }
     }
     
-    func createUser(username: String, password: String) async -> User? {
+    func createUser(username: String, password: String) async -> SignUpResponse? {
         let req = AuthRequest.login(username, password)
-        let user: User? = try? await requestManager.perform(req)
+        let user: SignUpResponse? = try? await requestManager.perform(req)
         return user
     }
 }
