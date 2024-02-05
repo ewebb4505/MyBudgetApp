@@ -42,7 +42,6 @@ class RequestManager: RequestManagerProtocol {
                                                 authToken: "",
                                                 username: "",
                                                 password: "")
-        print(data)
         let decoded: T = try parser.parse(data: data)
         return decoded
     }

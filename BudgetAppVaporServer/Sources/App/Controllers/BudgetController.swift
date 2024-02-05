@@ -13,12 +13,14 @@ import Vapor
 struct BudgetController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tags = routes.grouped("budgets")
+        let tokenProtected = tags.grouped(Token.authenticator())
         tags.get(use: getBudgets)
         tags.post(use: createBudget)
         tags.delete(use: deleteBudget)
         
         let tag = routes.grouped("budget")
-        tag.get(use: getBudget)
+        let tokenProtected2 = tag.grouped(Token.authenticator())
+        tokenProtected2.get(use: getBudget)
     }
     
     // Works

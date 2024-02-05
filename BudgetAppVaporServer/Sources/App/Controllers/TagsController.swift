@@ -13,12 +13,14 @@ import Vapor
 struct TagsController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let tags = routes.grouped("tags")
-        tags.get(use: getTags)
-        tags.post(use: createTag)
-        tags.delete(use: deleteTag)
+        let tokenProtected = tags.grouped(Token.authenticator())
+        tokenProtected.get(use: getTags)
+        tokenProtected.post(use: createTag)
+        tokenProtected.delete(use: deleteTag)
         
         let tag = routes.grouped("tag")
-        tag.get(use: getTag)
+        let tokenProtected2 = tag.grouped(Token.authenticator())
+        tokenProtected2.get(use: getTag)
     }
     
     func getTags(req: Request) async throws -> [Tag] {

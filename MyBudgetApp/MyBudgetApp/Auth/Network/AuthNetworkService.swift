@@ -26,8 +26,14 @@ struct AuthNetworkService: AuthNetworkServiceProtocol {
     }
     
     func createUser(username: String, password: String) async -> SignUpResponse? {
-        let req = AuthRequest.login(username, password)
-        let user: SignUpResponse? = try? await requestManager.perform(req)
-        return user
+        let req = AuthRequest.signup(username, password)
+        do {
+            let user: SignUpResponse = try await requestManager.perform(req)
+            return user
+        } catch {
+            print(error)
+            return nil
+        }
+        
     }
 }

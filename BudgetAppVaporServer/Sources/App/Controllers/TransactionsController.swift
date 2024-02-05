@@ -13,10 +13,11 @@ import Vapor
 struct TransactionsController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let transactions = routes.grouped("transactions")
-        transactions.get(use: getTransactions)
-        transactions.post(use: createTransaction)
-        transactions.delete(use: deleteTransaction)
-        routes.post("transactions", "budget", "category", use: addTransactionToCategroy)
+        let tokenProtected = transactions.grouped(Token.authenticator())
+        tokenProtected.get(use: getTransactions)
+        tokenProtected.post(use: createTransaction)
+        tokenProtected.delete(use: deleteTransaction)
+        tokenProtected.post("transactions", "budget", "category", use: addTransactionToCategroy)
     }
     
     // TESTING (Nov 13)
@@ -104,6 +105,12 @@ struct TransactionsController: RouteCollection {
     
     // NEEDS TESTING (NOV 16)
     func createTransaction(req: Request) async throws -> Transaction {
+        let user = try req.auth.require(User.self)
+        
+        guard let userID = try? user.requireID() else {
+            throw Abort(.badRequest, reason: "userID not found")
+        }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         
@@ -112,7 +119,10 @@ struct TransactionsController: RouteCollection {
         guard let transactionRequestDate = formatter.date(from: transactionRequest.date) else {
             throw Abort(.badRequest, reason: "bad date string given")
         }
-        let transaction = Transaction(title: transactionRequest.title, amount: transactionRequest.amount, date: transactionRequestDate)
+        let transaction = Transaction(userID: userID,
+                                      title: transactionRequest.title, 
+                                      amount: transactionRequest.amount,
+                                      date: transactionRequestDate)
         try await transaction.save(on: req.db)
         
         for tag in transactionRequest.tags {

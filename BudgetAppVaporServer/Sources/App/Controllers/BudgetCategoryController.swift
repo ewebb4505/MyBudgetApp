@@ -13,9 +13,10 @@ import Vapor
 struct BudgetCategoryController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let routes = routes.grouped("categories")
-        routes.get(use: getAllCategoriesForABudget)
-        routes.post(use: createBudgetCategory)
-        routes.delete(use: deleteBudgetCategory)
+        let tokenProtected = routes.grouped(Token.authenticator())
+        tokenProtected.get(use: getAllCategoriesForABudget)
+        tokenProtected.post(use: createBudgetCategory)
+        tokenProtected.delete(use: deleteBudgetCategory)
     }
     
     // works but sends back budget id

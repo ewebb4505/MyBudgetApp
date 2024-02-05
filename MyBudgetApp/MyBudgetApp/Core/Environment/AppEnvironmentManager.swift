@@ -39,4 +39,9 @@ final class AppEnvironmentManager {
     static func removeUsername() {
         UserDefaults.standard.removeObject(forKey: "savedUsername")
     }
+    
+    func setUser(_ user: User) {
+        UserKeychainManager.setUser(user)
+        self.user = user
+    }
 }

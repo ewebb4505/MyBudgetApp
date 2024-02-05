@@ -9,24 +9,28 @@ import Foundation
 
 protocol UserProtocol {
     var username: String { get }
-    var id: UUID { get }
-    var createdAt: Date { get }
-    var updatedAt: Date { get }
+    var id: String { get }
+    var createdAt: String { get }
+    var updatedAt: String { get }
 }
 
-class User: UserProtocol, Codable {
+struct User: UserProtocol, Codable, Equatable {
     var username: String
-    var id: UUID
-    var createdAt: Date
-    var updatedAt: Date
+    var id: String
+    var createdAt: String
+    var updatedAt: String
     
     init(username: String,
-         id: UUID,
-         createdAt: Date,
-         updatedAt: Date) {
+         id: String,
+         createdAt: String,
+         updatedAt: String) {
         self.username = username
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+    }
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.id == rhs.id
     }
 }

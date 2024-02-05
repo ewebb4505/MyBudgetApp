@@ -17,13 +17,12 @@ struct LoginCreateAccountView: View {
                 if vm.viewState == .login {
                     Section {
                         TextField("Username", text: $vm.loginNameInput)
-                            .textFieldStyle(.automatic)
                             .focused($focus, equals: .login)
                             .onSubmit(of: .text) {
                                 focus = .password
                             }
                         SecureField("Password", text: $vm.loginNamePassword)
-                            .textFieldStyle(.automatic)
+                            .textContentType(.password)
                             .focused($focus, equals: .password)
                         HStack {
                             Spacer()
@@ -39,15 +38,51 @@ struct LoginCreateAccountView: View {
                 } else {
                     Section {
                         TextField("Username", text: $vm.createAccountName)
+                            .focused($focus, equals: .login)
+                            .onSubmit(of: .text) {
+                                focus = .password
+                            }
                         SecureField("Password", text: $vm.createAccountPassword)
-                        SecureField("Password Again", text: $vm.createAccountPassword)
+                            .textContentType(.newPassword)
+                            .focused($focus, equals: .password)
+                            .onSubmit(of: .text) {
+                                focus = .passCheck
+                            }
+                        SecureField("Password Again", text: $vm.createAccountPasswordCheck)
+                            .textContentType(.newPassword)
+                            .focused($focus, equals: .passCheck)
+                            .onSubmit(of: .text) {
+                                vm.checkCreateAccountPassword()
+                            }
+                        HStack {
+                            Spacer()
+                            Button("Create Account") {
+                                Task {
+                                    await vm.createAccountButtonTapped()
+                                }
+                            }
+                            .disabled(!vm.isCreateAccountButtonEnabled)
+                        }
+                    } footer: {
+                        if vm.showPasswordsNotMatchingForCreateAccount {
+                            Text("Passwords do not match. Try again.")
+                                .foregroundStyle(.red)
+                        }
                     }
                 }
                 Section {
-                    Button {
-                        //nothing
-                    } label: {
-                        Text("Create Account")
+                    if vm.viewState == .login {
+                        Button {
+                            vm.viewState = .createAccount
+                        } label: {
+                            Text("Create Account")
+                        }
+                    } else {
+                        Button {
+                            vm.viewState = .login
+                        } label: {
+                            Text("Login With Existing Account")
+                        }
                     }
                 }
                 .navigationTitle("Sign In")

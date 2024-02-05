@@ -23,12 +23,14 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(UpdateTransactionTagPivot())
     app.migrations.add(CreateNewTransactionTagPivot())
     
-    //lets see what happens
     app.migrations.add(CreateBudget())
     app.migrations.add(CreateBudgetCategory())
     app.migrations.add(UpdateTransaction())
     app.migrations.add(CreateUsers())
     app.migrations.add(CreateTokens())
+    
+    //adding user keys to existing models
+    app.migrations.add(UpdateTransactionV3())
     
     app.logger.logLevel = .debug
     try await app.autoMigrate().get()

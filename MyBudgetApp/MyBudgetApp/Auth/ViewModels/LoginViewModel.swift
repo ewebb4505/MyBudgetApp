@@ -30,8 +30,11 @@ class LoginCreateAccountViewModel: ObservableObject {
 
     @Published var viewState: ViewState = .login
     @Published var processingRequest: Bool = false
+    @Published var showPasswordsNotMatchingForCreateAccount = false
     
     var networkService: AuthNetworkServiceProtocol
+    var appEnv = AppEnvironmentManager.instance
+
     
     init(networkService: AuthNetworkServiceProtocol = AuthNetworkService(requestManager: RequestManager())) {
         self.networkService = networkService
@@ -41,12 +44,29 @@ class LoginCreateAccountViewModel: ObservableObject {
         !loginNameInput.isEmpty && !loginNamePassword.isEmpty
     }
     
+    var isCreateAccountButtonEnabled: Bool {
+        !createAccountName.isEmpty && 
+        !createAccountPassword.isEmpty &&
+        !createAccountPasswordCheck.isEmpty &&
+        createAccountPassword == createAccountPasswordCheck
+    }
+    
     func onAppearHandle() {
         
     }
     
     func submitLoginInfo() async -> Bool {
-        return false
+        processingRequest = true
+        guard let response = await networkService.loginUser(username: loginNameInput,
+                                                            password: loginNamePassword) else {
+            processingRequest = false
+            return false
+        }
+        
+        // set user in env here
+        processingRequest = false
+        appEnv.setUser(response.user)
+        return true
     }
     
     func createAccountButtonTapped() async -> Bool {
@@ -61,12 +81,16 @@ class LoginCreateAccountViewModel: ObservableObject {
         }
         
         // set user in env here
-        
         processingRequest = false
+        appEnv.setUser(response.user)
         return true
     }
     
     func submitNewAccountInfo() async -> Bool {
         return false
+    }
+    
+    func checkCreateAccountPassword() {
+        showPasswordsNotMatchingForCreateAccount = createAccountPassword != createAccountPasswordCheck
     }
 }

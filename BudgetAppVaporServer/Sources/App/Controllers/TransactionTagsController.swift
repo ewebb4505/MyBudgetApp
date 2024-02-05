@@ -11,8 +11,9 @@ import Vapor
 
 final class TransactionTagsController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        routes.get("transaction", "tags", use: getTagsForTransaction)
-        routes.post("transaction", "tags", use: addTagsForTransaction)
+        let tokenProtected = routes.grouped(Token.authenticator())
+        tokenProtected.get("transaction", "tags", use: getTagsForTransaction)
+        tokenProtected.post("transaction", "tags", use: addTagsForTransaction)
     }
     
     func getTagsForTransaction(req: Request) async throws -> [Tag] {

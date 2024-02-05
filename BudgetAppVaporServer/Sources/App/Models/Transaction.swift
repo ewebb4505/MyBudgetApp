@@ -14,6 +14,9 @@ final class Transaction: Model, Content {
     @ID(key: .id) 
     var id: UUID?
     
+    @OptionalParent(key: "userID")
+    var user: User?
+    
     @Field(key: "title")
     var title: String
     
@@ -33,13 +36,15 @@ final class Transaction: Model, Content {
     
     init() {}
     
-    init(id: UUID? = nil, 
+    init(id: UUID? = nil,
+         userID: User.IDValue,
          title: String,
          amount: Double,
          date: Date,
          tags: [Tag],
          category: BudgetCategory.IDValue){
         self.id = id
+        self.$user.id  = userID
         self.title = title
         self.date = date
         self.tags = tags
@@ -47,23 +52,40 @@ final class Transaction: Model, Content {
     }
     
     init(id: UUID? = nil,
+         userID: User.IDValue,
+         title: String,
+         amount: Double,
+         date: Date,
+         category: BudgetCategory.IDValue){
+        self.id = id
+        self.$user.id  = userID
+        self.title = title
+        self.date = date
+        self.$category.id = category
+    }
+    
+    init(id: UUID? = nil,
+         userID: User.IDValue,
          title: String,
          amount: Double,
          date: Date,
          tags: [Tag]){
         self.id = id
+        self.$user.id = userID
         self.title = title
         self.date = date
         self.tags = tags
     }
     
     init(id: UUID? = nil, 
+         userID: User.IDValue,
          title: String,
          amount: Double,
          date: Date) {
         self.id = id
+        self.$user.id = userID
+        self.amount = amount
         self.title = title
         self.date = date
-        self.tags = []
     }
 }

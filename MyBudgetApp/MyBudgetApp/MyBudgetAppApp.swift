@@ -9,9 +9,27 @@ import SwiftUI
 
 @main
 struct MyBudgetAppApp: App {
+    var appEnv = AppEnvironmentManager.instance
+    @State private var showHomeScreen: Bool = false
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            Group {
+                if !showHomeScreen {
+                    LoginCreateAccountView()
+                        .transition(.slide.combined(with: .opacity))
+                } else {
+                    HomeView()
+                        .transition(.slide.combined(with: .opacity))
+                }
+            }
+            .onAppear {
+                showHomeScreen = appEnv.user != nil
+            }
+            .onChange(of: appEnv.user) { _, newValue in
+                if newValue != nil {
+                    showHomeScreen = true
+                }
+            }
         }
     }
 }
