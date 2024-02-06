@@ -8,6 +8,6 @@
 import Vapor
 
 enum SessionSource: Int, Content {
-  case signup
-  case login
+    case signup
+    case login
 }

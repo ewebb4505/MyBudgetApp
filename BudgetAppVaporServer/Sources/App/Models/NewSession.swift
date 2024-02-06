@@ -8,6 +8,6 @@
 import Vapor
 
 struct NewSession: Content {
-  let token: String
-  let user: User.Public
+    let token: Token.Public
+    let user: User.Public
 }
