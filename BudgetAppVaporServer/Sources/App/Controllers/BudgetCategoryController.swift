@@ -35,6 +35,9 @@ struct BudgetCategoryController: RouteCollection {
     
     // works
     func createBudgetCategory(req: Request) async throws -> BudgetCategory {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
         // first find the budget with the budget id from the request
         let budgetCategoryRequest = try req.content.decode(CreateBudgetCategoryRequest.self)
         let budgetID = UUID(uuidString: (budgetCategoryRequest.budgetID).replacingOccurrences(of: "\"", with: ""))
@@ -42,9 +45,10 @@ struct BudgetCategoryController: RouteCollection {
         
         if let budgetID {
             guard let budget = try await Budget.find(budgetID, on: req.db) else { throw Abort(.notFound) }
-            let budgetCategory = try BudgetCategory(title: budgetCategoryRequest.title,
-                                                          maxAmount: budgetCategoryRequest.maxAmount,
-                                                          budget: budget.requireID())
+            let budgetCategory = try BudgetCategory(userID: userID, 
+                                                    title: budgetCategoryRequest.title,
+                                                    maxAmount: budgetCategoryRequest.maxAmount,
+                                                    budget: budget.requireID())
             try await budgetCategory.save(on: req.db)
             return budgetCategory
         } else {

@@ -24,29 +24,58 @@ struct TagsController: RouteCollection {
     }
     
     func getTags(req: Request) async throws -> [Tag] {
-        try await Tag.query(on: req.db).all()
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        return try await Tag.query(on: req.db).filter(\.$user.$id == userID).all()
     }
     
     func getTag(req: Request) async throws -> Tag {
-        let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
-        req.logger.info("Requested ID: \(String(describing: id?.uuidString))")
-        guard let tag = try await Tag.find(id, on: req.db) else {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
+        guard let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: "")) else {
+            throw Abort(.badRequest, reason: "could not tag id.")
+        }
+        
+        req.logger.info("Requested ID: \(String(describing: id.uuidString))")
+        guard let tag = try await Tag.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .filter(\.$id == id)
+            .first() else {
             throw Abort(.notFound)
         }
         return tag
     }
     
     func createTag(req: Request) async throws -> Tag {
-        let tag = try req.content.decode(Tag.self)
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+    
+        let tagRequest = try req.content.decode(Tag.self)
+        let tag = Tag(userID: userID, title: tagRequest.title)
         try await tag.save(on: req.db)
         return tag
     }
     
     func deleteTag(req: Request) async throws -> HTTPStatus {
-        let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
-        req.logger.info("Requested ID: \(String(describing: id?.uuidString))")
-        guard let requestedTag = try await Tag.find(id, on: req.db),
-                let id = requestedTag.id else {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
+        guard let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: "")) else {
+            throw Abort(.badRequest, reason: "could not tag id.")
+        }
+        
+        req.logger.info("\n\n\nRequested ID: \(String(describing: id.uuidString))\n\n\n")
+        
+        guard let requestedTag = try await Tag.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .filter(\.$id == id)
+            .first(),
+              let id = requestedTag.id else {
             throw Abort(.notFound)
         }
         

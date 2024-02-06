@@ -14,6 +14,9 @@ final class Budget: Model, Content {
     @ID(key: .id)
     var id: UUID?
     
+    @OptionalParent(key: "userID")
+    var user: User?
+    
     @Field(key: "title")
     var title: String
     
@@ -32,11 +35,13 @@ final class Budget: Model, Content {
     init() {}
     
     init(id: UUID? = nil,
+         userID: User.IDValue,
          title: String,
          startDate: Date,
          endDate: Date,
          startingAmount: Double) {
         self.id = id
+        self.$user.id = userID
         self.title = title
         self.startDate = startDate
         self.endDate = endDate

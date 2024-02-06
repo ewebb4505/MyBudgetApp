@@ -31,6 +31,9 @@ public func configure(_ app: Application) async throws {
     
     //adding user keys to existing models
     app.migrations.add(UpdateTransactionV3())
+    app.migrations.add(UpdateBudget())
+    app.migrations.add(UpdateBudgetCategory())
+    app.migrations.add(UpdateTag())
     
     app.logger.logLevel = .debug
     try await app.autoMigrate().get()

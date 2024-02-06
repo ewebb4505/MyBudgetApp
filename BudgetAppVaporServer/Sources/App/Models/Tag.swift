@@ -14,6 +14,9 @@ final class Tag: Model, Content {
     @ID(key: .id)
     var id: UUID?
     
+    @OptionalParent(key: "userID")
+    var user: User?
+    
     @Field(key: "title")
     var title: String
     
@@ -24,8 +27,11 @@ final class Tag: Model, Content {
 
     init() {}
     
-    init(id: UUID? = nil, title: String) {
+    init(id: UUID? = nil, 
+         userID: User.IDValue,
+         title: String) {
         self.id = id
+        self.$user.id = userID
         self.title = title
     }
 }

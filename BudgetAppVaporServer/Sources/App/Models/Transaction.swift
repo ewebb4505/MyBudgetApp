@@ -8,7 +8,11 @@
 import Vapor
 import Fluent
 
-final class Transaction: Model, Content {
+protocol UserDriven {
+    var user: User? { get }
+}
+
+final class Transaction: Model, Content, UserDriven {
     static let schema = "transactions"
     
     @ID(key: .id) 

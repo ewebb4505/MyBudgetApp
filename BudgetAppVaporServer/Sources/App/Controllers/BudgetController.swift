@@ -43,7 +43,15 @@ struct BudgetController: RouteCollection {
     
     // Works
     func createBudget(req: Request) async throws -> Budget {
-        let budget = try req.content.decode(Budget.self)
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        let budgetRequest = try req.content.decode(Budget.self)
+        let budget = Budget(userID: userID,
+                            title: budgetRequest.title,
+                            startDate: budgetRequest.startDate,
+                            endDate: budgetRequest.endDate,
+                            startingAmount: budgetRequest.startingAmount)
         try await budget.save(on: req.db)
         return budget
     }

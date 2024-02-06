@@ -22,6 +22,10 @@ struct TransactionsController: RouteCollection {
     
     // TESTING (Nov 13)
     func getTransactions(req: Request) async throws -> [Transaction] {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
         // if "n" query param is present then get that number of results
         let nParam: Int? = Int(req.query["n"] ?? "")
         let formatter = DateFormatter()
@@ -29,21 +33,24 @@ struct TransactionsController: RouteCollection {
         let fromParam: String = req.query["fromDate"] ?? ""
         let toParam: String = req.query["toDate"] ?? ""
         let from = formatter.date(from: fromParam)
-        req.logger.debug("FROM_DATE: \(from) from \(fromParam)")
+        req.logger.debug("FROM_DATE: \(String(describing: from)) from \(fromParam)")
         let to = formatter.date(from: toParam)
-        req.logger.debug("TO_DATE: \(to) to \(toParam)")
+        req.logger.debug("TO_DATE: \(String(describing: to)) to \(toParam)")
         let on = formatter.date(from: req.query["onDate"] ?? "")
-        req.logger.debug("ON_DATE: \(on)")
+        req.logger.debug("ON_DATE: \(String(describing: on))")
         
+        //TODO: please refactor this before finishing
         if let on {
             if let nParam {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date == on)
                     .with(\.$tags)
                     .range(..<nParam)
                     .all()
             } else {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date == on)
                     .with(\.$tags)
                     .all()
@@ -51,6 +58,7 @@ struct TransactionsController: RouteCollection {
         } else if let from, let to {
             if let nParam {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date <= to)
                     .filter(\.$date >= from)
                     .with(\.$tags)
@@ -58,6 +66,7 @@ struct TransactionsController: RouteCollection {
                     .all()
             } else {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date <= to)
                     .filter(\.$date >= from)
                     .with(\.$tags)
@@ -66,12 +75,14 @@ struct TransactionsController: RouteCollection {
         } else if let from {
             if let nParam {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date >= from)
                     .with(\.$tags)
                     .range(..<nParam)
                     .all()
             } else {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date >= from)
                     .with(\.$tags)
                     .all()
@@ -79,12 +90,14 @@ struct TransactionsController: RouteCollection {
         } else if let to {
             if let nParam {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date <= to)
                     .with(\.$tags)
                     .range(..<nParam)
                     .all()
             } else {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .filter(\.$date <= to)
                     .with(\.$tags)
                     .all()
@@ -92,18 +105,19 @@ struct TransactionsController: RouteCollection {
         } else {
             if let nParam {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .with(\.$tags)
                     .range(..<nParam)
                     .all()
             } else {
                 return try await Transaction.query(on: req.db)
+                    .filter(\.$user.$id == userID)
                     .with(\.$tags)
                     .all()
             }
         }
     }
     
-    // NEEDS TESTING (NOV 16)
     func createTransaction(req: Request) async throws -> Transaction {
         let user = try req.auth.require(User.self)
         
@@ -138,6 +152,10 @@ struct TransactionsController: RouteCollection {
     
     // works (Oct, 27)
     func deleteTransaction(req: Request) async throws -> HTTPStatus {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
         let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
         req.logger.info("Requested ID: \(String(describing: id?.uuidString))")
         guard let transaction = try await Transaction.find(id, on: req.db) else {
