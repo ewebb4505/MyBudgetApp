@@ -41,7 +41,16 @@ final class AppEnvironmentManager {
     }
     
     func setUser(_ user: User) {
+        Self.saveUsername(username: user.username)
         UserKeychainManager.setUser(user)
         self.user = user
+    }
+    
+    func getUser() {
+        user = UserKeychainManager.getUser(AppEnvironmentManager.getUsername() ?? "")
+    }
+    
+    func userIsSignedIn() -> Bool {
+        user != nil
     }
 }

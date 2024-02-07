@@ -9,5 +9,5 @@ import Foundation
 
 struct SignUpResponse: Decodable {
     var user: User
-    var token: String
+    var token: Token
 }

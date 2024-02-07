@@ -9,25 +9,21 @@ import SwiftUI
 
 @main
 struct MyBudgetAppApp: App {
+    @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     var appEnv = AppEnvironmentManager.instance
-    @State private var showHomeScreen: Bool = false
+    
+    @State var showLoginView: Bool = false
     var body: some Scene {
         WindowGroup {
             Group {
-                if !showHomeScreen {
-                    LoginCreateAccountView()
-                        .transition(.slide.combined(with: .opacity))
-                } else {
-                    HomeView()
-                        .transition(.slide.combined(with: .opacity))
-                }
+                HomeView(showLoginScreenCover: $showLoginView)
             }
-            .onAppear {
-                showHomeScreen = appEnv.user != nil
-            }
+            .fullScreenCover(isPresented: $showLoginView, content: {
+                LoginCreateAccountView()
+            })
             .onChange(of: appEnv.user) { _, newValue in
                 if newValue != nil {
-                    showHomeScreen = true
+                    showLoginView = false
                 }
             }
         }

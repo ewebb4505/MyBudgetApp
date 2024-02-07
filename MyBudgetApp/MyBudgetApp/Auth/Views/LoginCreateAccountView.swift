@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginCreateAccountView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var vm = LoginCreateAccountViewModel()
     @FocusState private var focus: LoginCreateAccountViewModel.FocusableField?
     
@@ -88,6 +89,16 @@ struct LoginCreateAccountView: View {
                 .navigationTitle("Sign In")
             }
             .defaultFocus($focus, .login)
+            .toolbar(.visible, for: .automatic)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                    }
+                }
+            }
         }
     }
 }

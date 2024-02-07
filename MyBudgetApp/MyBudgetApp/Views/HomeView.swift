@@ -16,30 +16,17 @@ struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     @State private var showingFullScreenCover: Bool = false
     @State private var navPath = NavigationPath()
+    @State private var showUserSettings: Bool = false
+    
+    @Binding var showLoginScreenCover: Bool
     
     var body: some View {
         NavigationStack(path: $navPath) {
-            ZStack {
-                Color.gray.opacity(0.15).ignoresSafeArea()
-                
-                if vm.isLoadingResults {
-                    ProgressView()
+            Group {
+                if vm.showEmptyViewBeforeLogin {
+                    loggedOutView
                 } else {
-                    VStack(spacing: 16) {
-                        currentBudgets
-                        
-                        lastTenTransactionsTable
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .padding(.horizontal)
-                            
-                        allTags
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .padding(.horizontal)
-                        
-                        Spacer()
-                    }
-                    
-                    fab
+                    loggedInUserView
                 }
             }
             .navigationDestination(for: InputViewType.self, destination: { type in
@@ -56,7 +43,7 @@ struct HomeView: View {
             .toolbar(content: {
                 ToolbarItemGroup {
                     Button {
-                        
+                        showUserSettings = true
                     } label: {
                         Image(systemName: "person.crop.circle")
                     }
@@ -72,6 +59,9 @@ struct HomeView: View {
             })
             .sheet(isPresented: $vm.appEnv.showDebugMenu) {
                 DebugView()
+            }
+            .sheet(isPresented: $showUserSettings) {
+                UserSettingsView()
             }
         }
         .transparentNonAnimatingFullScreenCover(isPresented: $showingFullScreenCover, content: {
@@ -142,6 +132,51 @@ struct HomeView: View {
                 await vm.onAppear()
             }
         })
+    }
+    
+    @ViewBuilder
+    private var loggedInUserView: some View {
+        ZStack {
+            Color.gray.opacity(0.15).ignoresSafeArea()
+            
+            if vm.isLoadingResults {
+                ProgressView()
+            } else {
+                VStack(spacing: 16) {
+                    currentBudgets
+                    
+                    lastTenTransactionsTable
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .padding(.horizontal)
+                    
+                    allTags
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .padding(.horizontal)
+                    
+                    Spacer()
+                }
+                
+                fab
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var loggedOutView: some View {
+        ZStack {
+            Color.gray.opacity(0.15).ignoresSafeArea()
+            
+            VStack {
+                Text("Log your daily spending and create a budget to meet your money goals!")
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                Button("Login or Create Account") {
+                    showLoginScreenCover = true
+                }
+                .controlSize(.extraLarge)
+                .buttonStyle(.borderedProminent)
+            }
+        }
     }
     
     @ViewBuilder
@@ -266,5 +301,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(vm: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [])], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]))
+    HomeView(vm: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [])], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]), showLoginScreenCover: .constant(false))
 }

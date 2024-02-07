@@ -20,6 +20,8 @@
 		0145E2822B6EF1CE00201C06 /* TokenKeychainManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2812B6EF1CE00201C06 /* TokenKeychainManger.swift */; };
 		0145E2842B6FF34A00201C06 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2832B6FF34A00201C06 /* SignUpResponse.swift */; };
 		0145E2862B6FFF5E00201C06 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2852B6FFF5E00201C06 /* KeychainHelper.swift */; };
+		0145E2882B732F1200201C06 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2872B732F1200201C06 /* MyAppDelegate.swift */; };
+		0145E28A2B7332C000201C06 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2892B7332C000201C06 /* UserSettingsView.swift */; };
 		0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */; };
 		0158817D2B04549400EB3795 /* FABVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817C2B04549400EB3795 /* FABVew.swift */; };
 		0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */; };
@@ -96,6 +98,8 @@
 		0145E2812B6EF1CE00201C06 /* TokenKeychainManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKeychainManger.swift; sourceTree = "<group>"; };
 		0145E2832B6FF34A00201C06 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		0145E2852B6FFF5E00201C06 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		0145E2872B732F1200201C06 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
+		0145E2892B7332C000201C06 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentFullScreenCover.swift; sourceTree = "<group>"; };
 		0158817C2B04549400EB3795 /* FABVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FABVew.swift; sourceTree = "<group>"; };
 		0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -318,6 +322,7 @@
 				018B3E272B015D5C000C2054 /* ContentView.swift */,
 				018B3E292B015D5F000C2054 /* Assets.xcassets */,
 				018B3E2B2B015D5F000C2054 /* Preview Content */,
+				0145E2872B732F1200201C06 /* MyAppDelegate.swift */,
 			);
 			path = MyBudgetApp;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 			children = (
 				018B3E912B01B433000C2054 /* HomeView.swift */,
 				015881802B0457BF00EB3795 /* CreateTransactionView.swift */,
+				0145E2892B7332C000201C06 /* UserSettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -668,6 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0145E2882B732F1200201C06 /* MyAppDelegate.swift in Sources */,
 				018B3E972B01B689000C2054 /* TransactionDataRow.swift in Sources */,
 				015881842B045C1F00EB3795 /* DollarAmountTextField.swift in Sources */,
 				01028BF52B6AC7F9003FCC68 /* AppEnvironmentManager.swift in Sources */,
@@ -690,6 +697,7 @@
 				0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */,
 				018B3E7C2B01685E000C2054 /* TagsNetworkService.swift in Sources */,
 				018B3E862B0169BF000C2054 /* BudgetCategory.swift in Sources */,
+				0145E28A2B7332C000201C06 /* UserSettingsView.swift in Sources */,
 				0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */,
 				018B3E772B0167F6000C2054 /* TagsNetworkServiceProtocol.swift in Sources */,
 				0145E27E2B6EF04900201C06 /* Token.swift in Sources */,

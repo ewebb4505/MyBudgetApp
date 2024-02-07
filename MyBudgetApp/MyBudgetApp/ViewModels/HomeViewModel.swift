@@ -17,6 +17,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var isLoadingResults: Bool = false
     @Published var isErrorFromFetchingData: Bool = false
+    @Published var showEmptyViewBeforeLogin: Bool = false
     
     var currentBudgetsTotalSpending: [Budget.ID: Double] = [:]
     
@@ -33,6 +34,7 @@ class HomeViewModel: ObservableObject {
         self.tagsNetworkService = tagsNetworkService
     }
     
+    // preview init
     init(currentBudgets: [Budget] = [],
          transactions: [Transaction] = [],
          allTags: [Tag] = [],
@@ -48,12 +50,16 @@ class HomeViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        isLoadingResults = true
-        await getLastTenTransactions()
-        await getCurrentBudgets()
-        await getAllTags()
-        await getTotalSpendingForEachCurrentBudget()
-        isLoadingResults = false
+        if appEnv.userIsSignedIn() {
+            isLoadingResults = true
+            await getLastTenTransactions()
+            await getCurrentBudgets()
+            await getAllTags()
+            await getTotalSpendingForEachCurrentBudget()
+            isLoadingResults = false
+        } else {
+            showEmptyViewBeforeLogin = true
+        }
     }
     
     func getLastTenTransactions() async {
