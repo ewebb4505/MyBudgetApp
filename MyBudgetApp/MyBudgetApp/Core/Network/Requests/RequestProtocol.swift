@@ -38,7 +38,7 @@ extension RequestProtocol {
         [:]
     }
     
-    func createURLRequest(authToken: String, username: String, password: String) throws -> URLRequest {
+    func createURLRequest(authToken: String) throws -> URLRequest {
         var components = URLComponents()
         components.scheme = "http"
         components.host = host
@@ -59,25 +59,32 @@ extension RequestProtocol {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = requestType.rawValue
 
+        if addBasicAuthHeader, let username = headers["username"], let password = headers["password"] {
+            let loginString = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
+            urlRequest.setValue("Basic \(loginString)", forHTTPHeaderField: "Authorization")
+        }
+        
         if !headers.isEmpty {
-            urlRequest.allHTTPHeaderFields = headers
+            if addBasicAuthHeader {
+                var headersWithoutUsernameAndPassword = headers
+                headersWithoutUsernameAndPassword.removeValue(forKey: "username")
+                headersWithoutUsernameAndPassword.removeValue(forKey: "password")
+                urlRequest.allHTTPHeaderFields = headersWithoutUsernameAndPassword
+            } else {
+                urlRequest.allHTTPHeaderFields = headers
+            }
         }
 
         if addAuthorizationToken {
             urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
         }
         
-        if addBasicAuthHeader {
-            let loginString = "\(username):\(password)".data(using: .utf8)!
-            urlRequest.setValue("Basic \(loginString)", forHTTPHeaderField: "Authorization")
-        }
-
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         if !params.isEmpty {
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
         }
-
+        print("\n\n\n\(urlRequest.allHTTPHeaderFields?.description)\n\n\n")
         return urlRequest
     }
     

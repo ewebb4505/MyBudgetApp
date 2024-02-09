@@ -13,17 +13,19 @@ struct HomeView: View {
         case addBudget
         case addTag
     }
-    @StateObject var vm = HomeViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
+    @StateObject var loginCreateAccountViewModel = LoginCreateAccountViewModel()
     @State private var showingFullScreenCover: Bool = false
     @State private var navPath = NavigationPath()
-    @State private var showUserSettings: Bool = false
     
-    @Binding var showLoginScreenCover: Bool
+    @State var showLoginScreenCover: Bool = false
+    
+    var appEnv = AppEnvironmentManager.instance
     
     var body: some View {
         NavigationStack(path: $navPath) {
             Group {
-                if vm.showEmptyViewBeforeLogin {
+                if homeViewModel.showEmptyViewBeforeLogin {
                     loggedOutView
                 } else {
                     loggedInUserView
@@ -34,7 +36,7 @@ struct HomeView: View {
                 case .addBudget:
                     Text("Hello Add Budget View")
                 case .addTransaction:
-                    CreateTransactionView(tags: vm.allTags)
+                    CreateTransactionView(tags: homeViewModel.allTags)
                 case .addTag:
                     Text("Hello Add Tag View")
                 }
@@ -42,26 +44,38 @@ struct HomeView: View {
             .navigationTitle("MyBudget App")
             .toolbar(content: {
                 ToolbarItemGroup {
-                    Button {
-                        showUserSettings = true
+                    Menu {
+                        Button("Logout", action: {
+                            Task {
+                                await homeViewModel.logoutUser()
+                            }
+                        })
                     } label: {
                         Image(systemName: "person.crop.circle")
                     }
+
                     
-                    if vm.appEnv.showDebugSettings {
+                    if homeViewModel.appEnv.showDebugSettings {
                         Button {
-                            vm.appEnv.showDebugMenu = true
+                            homeViewModel.appEnv.showDebugMenu = true
                         } label: {
                             Image(systemName: "gearshape")
                         }
                     }
                 }
             })
-            .sheet(isPresented: $vm.appEnv.showDebugMenu) {
+            .sheet(isPresented: $homeViewModel.appEnv.showDebugMenu) {
                 DebugView()
             }
-            .sheet(isPresented: $showUserSettings) {
-                UserSettingsView()
+            .fullScreenCover(isPresented: $showLoginScreenCover, content: {
+                LoginCreateAccountView(vm: loginCreateAccountViewModel)
+            })
+            .onChange(of: appEnv.user) { [weak homeViewModel] _, newValue in
+                if newValue != nil {
+                    homeViewModel?.showEmptyViewBeforeLogin = false
+                } else {
+                    homeViewModel?.showEmptyViewBeforeLogin = true
+                }
             }
         }
         .transparentNonAnimatingFullScreenCover(isPresented: $showingFullScreenCover, content: {
@@ -129,7 +143,7 @@ struct HomeView: View {
         })
         .onAppear(perform: {
             Task {
-                await vm.onAppear()
+                await homeViewModel.onAppear()
             }
         })
     }
@@ -139,7 +153,7 @@ struct HomeView: View {
         ZStack {
             Color.gray.opacity(0.15).ignoresSafeArea()
             
-            if vm.isLoadingResults {
+            if homeViewModel.isLoadingResults {
                 ProgressView()
             } else {
                 VStack(spacing: 16) {
@@ -181,12 +195,12 @@ struct HomeView: View {
     
     @ViewBuilder
     private var currentBudgets: some View {
-        if !vm.currentBudgets.isEmpty {
+        if !homeViewModel.currentBudgets.isEmpty {
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(vm.currentBudgets) { budget in
+                    ForEach(homeViewModel.currentBudgets) { budget in
                         CurrentBudgetCardView(budget: budget,
-                                              amountSpent: vm.currentBudgetsTotalSpending[budget.id] ?? 0)
+                                              amountSpent: homeViewModel.currentBudgetsTotalSpending[budget.id] ?? 0)
                     }
                 }
                 .padding(.leading, 16)
@@ -226,7 +240,7 @@ struct HomeView: View {
                 .buttonStyle(.borderedProminent)
             }
             
-            ForEach(vm.transactions) { transaction in
+            ForEach(homeViewModel.transactions) { transaction in
                 TransactionDataRow(transcation: transaction)
             }
             
@@ -275,7 +289,7 @@ struct HomeView: View {
             // way is this not showing?
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(vm.allTags) { tag in
+                    ForEach(homeViewModel.allTags) { tag in
                         TagBadge(tag: tag)
                     }
                 }
@@ -301,5 +315,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(vm: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [])], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]), showLoginScreenCover: .constant(false))
+    HomeView(homeViewModel: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [])], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]), showLoginScreenCover: false)
 }

@@ -92,6 +92,10 @@ class HomeViewModel: ObservableObject {
         }
         currentBudgetsTotalSpending = totalSpending
     }
+    
+    func logoutUser() async {
+        appEnv.removeUser()
+    }
 }
 
 extension Sequence {

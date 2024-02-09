@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginCreateAccountView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var vm = LoginCreateAccountViewModel()
+    @ObservedObject var vm: LoginCreateAccountViewModel
     @FocusState private var focus: LoginCreateAccountViewModel.FocusableField?
     
     var body: some View {
@@ -104,5 +104,5 @@ struct LoginCreateAccountView: View {
 }
 
 #Preview {
-    LoginCreateAccountView()
+    LoginCreateAccountView(vm: LoginCreateAccountViewModel())
 }

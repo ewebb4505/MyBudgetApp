@@ -25,32 +25,56 @@ final class AppEnvironmentManager {
     var user: User? = nil
     
     private init() {
-        user = UserKeychainManager.getUser(AppEnvironmentManager.getUsername() ?? "")
+        user = UserKeychainManager.getUser(getUsername() ?? "")
     }
     
-    static func saveUsername(username: String) {
+    //MARK: User Management
+    func saveUsername(username: String) {
         UserDefaults.standard.set(username, forKey: "savedUsername")
     }
     
-    static func getUsername() -> String? {
+    func getUsername() -> String? {
         return UserDefaults.standard.string(forKey: "savedUsername")
     }
     
-    static func removeUsername() {
+    func removeUsername() {
         UserDefaults.standard.removeObject(forKey: "savedUsername")
     }
     
     func setUser(_ user: User) {
-        Self.saveUsername(username: user.username)
+        saveUsername(username: user.username)
         UserKeychainManager.setUser(user)
         self.user = user
     }
     
     func getUser() {
-        user = UserKeychainManager.getUser(AppEnvironmentManager.getUsername() ?? "")
+        user = UserKeychainManager.getUser(getUsername() ?? "")
+    }
+    
+    func removeUser() {
+        guard let user else {
+            return
+        }
+        UserKeychainManager.removeUser(user)
     }
     
     func userIsSignedIn() -> Bool {
         user != nil
     }
-}
+    
+    //MARK: Token Management
+    
+    func setToken(_ token: Token) {
+        guard let user else {
+            return
+        }
+        TokenKeychainManager.setToken(token, id: user.id)
+    }
+    
+    func getToken() -> Token? {
+        TokenKeychainManager.getToken(user?.id ?? "")
+    }
+    
+    func removeToken() {
+        TokenKeychainManager.removeToken(user?.id ?? "")
+    }}

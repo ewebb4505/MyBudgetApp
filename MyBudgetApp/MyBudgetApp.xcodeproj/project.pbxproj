@@ -21,7 +21,11 @@
 		0145E2842B6FF34A00201C06 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2832B6FF34A00201C06 /* SignUpResponse.swift */; };
 		0145E2862B6FFF5E00201C06 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2852B6FFF5E00201C06 /* KeychainHelper.swift */; };
 		0145E2882B732F1200201C06 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2872B732F1200201C06 /* MyAppDelegate.swift */; };
-		0145E28A2B7332C000201C06 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2892B7332C000201C06 /* UserSettingsView.swift */; };
+		0145E28C2B75AC0700201C06 /* UserKeychainManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E28B2B75AC0700201C06 /* UserKeychainManagable.swift */; };
+		0145E28E2B75AC2500201C06 /* TokenKeychainManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E28D2B75AC2500201C06 /* TokenKeychainManagable.swift */; };
+		0145E2902B75B01600201C06 /* AccessTokenManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E28F2B75B01600201C06 /* AccessTokenManagerProtocol.swift */; };
+		0145E2922B75B02F00201C06 /* AccessTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2912B75B02F00201C06 /* AccessTokenManager.swift */; };
+		0145E2942B75B16300201C06 /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2932B75B16300201C06 /* AuthNetworkManager.swift */; };
 		0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */; };
 		0158817D2B04549400EB3795 /* FABVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817C2B04549400EB3795 /* FABVew.swift */; };
 		0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */; };
@@ -99,7 +103,11 @@
 		0145E2832B6FF34A00201C06 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		0145E2852B6FFF5E00201C06 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		0145E2872B732F1200201C06 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
-		0145E2892B7332C000201C06 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
+		0145E28B2B75AC0700201C06 /* UserKeychainManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserKeychainManagable.swift; sourceTree = "<group>"; };
+		0145E28D2B75AC2500201C06 /* TokenKeychainManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenKeychainManagable.swift; sourceTree = "<group>"; };
+		0145E28F2B75B01600201C06 /* AccessTokenManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenManagerProtocol.swift; sourceTree = "<group>"; };
+		0145E2912B75B02F00201C06 /* AccessTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenManager.swift; sourceTree = "<group>"; };
+		0145E2932B75B16300201C06 /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
 		015881792B04545E00EB3795 /* TransparentFullScreenCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentFullScreenCover.swift; sourceTree = "<group>"; };
 		0158817C2B04549400EB3795 /* FABVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FABVew.swift; sourceTree = "<group>"; };
 		0158817E2B04579600EB3795 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -206,6 +214,7 @@
 				0145E2762B6DA3BE00201C06 /* AuthRequest.swift */,
 				0145E2782B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift */,
 				0145E27A2B6E0C4300201C06 /* AuthNetworkService.swift */,
+				0145E2932B75B16300201C06 /* AuthNetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -242,6 +251,8 @@
 				0145E27F2B6EF18200201C06 /* UserKeychainManager.swift */,
 				0145E2812B6EF1CE00201C06 /* TokenKeychainManger.swift */,
 				0145E2852B6FFF5E00201C06 /* KeychainHelper.swift */,
+				0145E28B2B75AC0700201C06 /* UserKeychainManagable.swift */,
+				0145E28D2B75AC2500201C06 /* TokenKeychainManagable.swift */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -420,6 +431,8 @@
 				018B3E5A2B015EA7000C2054 /* RequestType.swift */,
 				018B3E5C2B015EBE000C2054 /* RequestProtocol.swift */,
 				018B3E682B016001000C2054 /* AuthTokenRequest.swift */,
+				0145E28F2B75B01600201C06 /* AccessTokenManagerProtocol.swift */,
+				0145E2912B75B02F00201C06 /* AccessTokenManager.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -448,7 +461,6 @@
 			children = (
 				018B3E912B01B433000C2054 /* HomeView.swift */,
 				015881802B0457BF00EB3795 /* CreateTransactionView.swift */,
-				0145E2892B7332C000201C06 /* UserSettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -688,22 +700,24 @@
 				018B3E5F2B015EDB000C2054 /* APIConstants.swift in Sources */,
 				018B3E6F2B01611E000C2054 /* BudgetsRequest.swift in Sources */,
 				018B3E262B015D5C000C2054 /* MyBudgetAppApp.swift in Sources */,
+				0145E2902B75B01600201C06 /* AccessTokenManagerProtocol.swift in Sources */,
 				018B3E9D2B01BEF3000C2054 /* CurrentBudgetCardView.swift in Sources */,
 				018B3E692B016001000C2054 /* AuthTokenRequest.swift in Sources */,
 				018B3E652B015F9E000C2054 /* RequestManager.swift in Sources */,
+				0145E28E2B75AC2500201C06 /* TokenKeychainManagable.swift in Sources */,
 				0145E2862B6FFF5E00201C06 /* KeychainHelper.swift in Sources */,
 				0158818A2B046B6E00EB3795 /* DollarAmountValidator.swift in Sources */,
 				018B3E8C2B016B39000C2054 /* BudgetNetworkServiceProtocol.swift in Sources */,
 				0158817F2B04579600EB3795 /* CreateTransactionViewModel.swift in Sources */,
 				018B3E7C2B01685E000C2054 /* TagsNetworkService.swift in Sources */,
 				018B3E862B0169BF000C2054 /* BudgetCategory.swift in Sources */,
-				0145E28A2B7332C000201C06 /* UserSettingsView.swift in Sources */,
 				0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */,
 				018B3E772B0167F6000C2054 /* TagsNetworkServiceProtocol.swift in Sources */,
 				0145E27E2B6EF04900201C06 /* Token.swift in Sources */,
 				018B3E7E2B016943000C2054 /* TransactionsNetworkServiceProtocol.swift in Sources */,
 				0145E2772B6DA3BE00201C06 /* AuthRequest.swift in Sources */,
 				018B3E5B2B015EA7000C2054 /* RequestType.swift in Sources */,
+				0145E2942B75B16300201C06 /* AuthNetworkManager.swift in Sources */,
 				0145E2802B6EF18200201C06 /* UserKeychainManager.swift in Sources */,
 				018B3E8E2B016B83000C2054 /* BudgetCategoryNetworkService.swift in Sources */,
 				018B3E812B016965000C2054 /* Transaction.swift in Sources */,
@@ -715,7 +729,9 @@
 				018B3E9A2B01B9C7000C2054 /* TagBadge.swift in Sources */,
 				0145E2792B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift in Sources */,
 				018B3E942B01B451000C2054 /* HomeViewModel.swift in Sources */,
+				0145E28C2B75AC0700201C06 /* UserKeychainManagable.swift in Sources */,
 				0145E2842B6FF34A00201C06 /* SignUpResponse.swift in Sources */,
+				0145E2922B75B02F00201C06 /* AccessTokenManager.swift in Sources */,
 				018B3E632B015F7F000C2054 /* DataParser.swift in Sources */,
 				0145E27B2B6E0C4300201C06 /* AuthNetworkService.swift in Sources */,
 				0158818D2B04F8C500EB3795 /* IsSelected.swift in Sources */,

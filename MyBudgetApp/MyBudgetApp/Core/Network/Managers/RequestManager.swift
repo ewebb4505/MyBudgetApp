@@ -38,18 +38,12 @@ class RequestManager: RequestManagerProtocol {
 
     func perform<T: Decodable>(_ request: RequestProtocol) async throws -> T {
         // let authToken = try await requestAccessToken()
-        let data = try await apiManager.perform(request,
-                                                authToken: "",
-                                                username: "",
-                                                password: "")
+        let data = try await apiManager.perform(request, authToken: "")
         let decoded: T = try parser.parse(data: data)
         return decoded
     }
     
     func performWithNoParsing(_ request: RequestProtocol) async throws {
-       let _ = try await apiManager.perform(request, 
-                                            authToken: "",
-                                            username: "",
-                                            password: "")
+       let _ = try await apiManager.perform(request, authToken: "")
     }
 }

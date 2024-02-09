@@ -32,10 +32,19 @@ enum AuthRequest: RequestProtocol {
     
     var params: [String : Any] {
         switch self {
-        case .login(_, _), .logout, .me:
-            [:]
         case .signup(let username, let password):
             ["username": username, "password": password]
+        case .logout, .me, .login(_, _):
+            [:]
+        }
+    }
+    
+    var headers: [String : String] {
+        switch self {
+        case .login(let username, let password):
+            ["username": username, "password": password]
+        case .logout, .me, .signup(_, _):
+            [:]
         }
     }
     

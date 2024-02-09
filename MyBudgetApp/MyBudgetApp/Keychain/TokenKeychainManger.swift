@@ -8,68 +8,19 @@
 import Foundation
 import Security
 
-protocol TokenKeychainManagable {
-    static var idLabel: String { get }
-    func setToken(_ token: Token)
-    func removeToken(_ token: Token)
-    func getToken(_ token: String) -> Token?
-}
-
 class TokenKeychainManager: TokenKeychainManagable {
     static var idLabel: String = "MyBudgetApp Label"
+    static var service: String = "com.MyBudgetApp.app"
     
-    func setToken(_ token: Token) {
-        let attributes: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: token.token,
-            kSecAttrLabel as String: Self.idLabel
-        ]
-        
-        if SecItemAdd(attributes as CFDictionary, nil) == noErr {
-            print("\n\n token info saved to keychain \n\n")
-        } else {
-            print("=== ERROR === \n\n Could not save token to keychain \n\n")
-        }
+    static func setToken(_ token: Token, id: String) {
+        KeychainHelper.standard.save<Token>(token, service: service, account: id)
     }
     
-    func removeToken(_ token: Token) {
-        // Set query
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: token.token,
-        ]
-        // Find user and delete
-        if SecItemDelete(query as CFDictionary) == noErr {
-            print("User removed successfully from the keychain")
-        } else {
-            print("Something went wrong trying to remove the user from the keychain")
-        }
+    static func removeToken(_ id: String) {
+        KeychainHelper.standard.delete(service: service, account: id)
     }
     
-    func getToken(_ token: String) -> Token? {
-        // Set query
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: token,
-            kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecReturnAttributes as String: true,
-            kSecReturnData as String: true,
-        ]
-        var item: CFTypeRef?
-        // Check if user exists in the keychain
-        if SecItemCopyMatching(query as CFDictionary, &item) == noErr {
-            // Extract result
-            if let existingItem = item as? [String: Any],
-               let tokenData = existingItem[kSecValueData as String] as? Data,
-               let token = String(data: tokenData, encoding: .utf8)
-            {
-                print(token)
-                return Token(token: token)
-            }
-            return nil
-        } else {
-            print("Something went wrong trying to find the user in the keychain")
-            return nil
-        }
+    static func getToken(_ id: String) -> Token? {
+        KeychainHelper.standard.read(service: service, account: id, type: Token.self)
     }
 }

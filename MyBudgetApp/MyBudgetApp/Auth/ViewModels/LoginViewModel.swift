@@ -57,8 +57,7 @@ class LoginCreateAccountViewModel: ObservableObject {
     
     func submitLoginInfo() async -> Bool {
         processingRequest = true
-        guard let response = await networkService.loginUser(username: loginNameInput,
-                                                            password: loginNamePassword) else {
+        guard let response = await networkService.loginUser(username: loginNameInput, password: loginNamePassword) else {
             processingRequest = false
             return false
         }
@@ -66,6 +65,7 @@ class LoginCreateAccountViewModel: ObservableObject {
         // set user in env here
         processingRequest = false
         appEnv.setUser(response.user)
+        appEnv.setToken(response.token)
         return true
     }
     
@@ -74,8 +74,7 @@ class LoginCreateAccountViewModel: ObservableObject {
             return false
         }
         processingRequest = true
-        guard let response = await networkService.createUser(username: createAccountName,
-                                                             password: createAccountPassword) else {
+        guard let response = await networkService.createUser(username: createAccountName, password: createAccountPassword) else {
             processingRequest = false
             return false
         }
