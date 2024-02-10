@@ -133,6 +133,7 @@ struct TransactionsController: RouteCollection {
         guard let transactionRequestDate = formatter.date(from: transactionRequest.date) else {
             throw Abort(.badRequest, reason: "bad date string given")
         }
+        
         let transaction = Transaction(userID: userID,
                                       title: transactionRequest.title, 
                                       amount: transactionRequest.amount,
@@ -140,7 +141,7 @@ struct TransactionsController: RouteCollection {
         try await transaction.save(on: req.db)
         
         for tag in transactionRequest.tags {
-            let id = UUID(uuidString: (tag ?? "").replacingOccurrences(of: "\"", with: ""))
+            let id = UUID(uuidString: tag.replacingOccurrences(of: "\"", with: ""))
             guard let tag = try await Tag.find(id, on: req.db) else {
                 throw Abort(.notFound, reason: "Tag ID \(tag) Not Found In Tags Table")
             }

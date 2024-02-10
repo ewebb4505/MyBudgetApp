@@ -23,4 +23,30 @@ class Token: TokenProtocol, Codable {
         self.createdAt = createAt
         self.expiresAt = expiresAt
     }
+    
+    var createdAtDate: Date? {
+        createDate(createdAt)
+    }
+    
+    var expiresAtDate: Date? {
+        createDate(expiresAt)
+    }
+    
+    func hasExpired() -> Bool {
+        let now = Date.now
+        guard let expires = expiresAtDate else {
+            return true
+        }
+        
+        return now > expires
+    }
+    
+    private func createDate(_ str: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let date = formatter.date(from: str) else {
+            return nil
+        }
+        return date
+    }
 }

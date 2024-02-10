@@ -27,12 +27,19 @@ struct LoginCreateAccountView: View {
                             .focused($focus, equals: .password)
                         HStack {
                             Spacer()
-                            Button("Login") {
-                                Task {
-                                    await vm.submitLoginInfo()
+                            if vm.processingRequest {
+                                ProgressView()
+                            } else {
+                                Button("Login") {
+                                    Task {
+                                        if await vm.submitLoginInfo() {
+                                            vm.clearInputs()
+                                            dismiss()
+                                        }
+                                    }
                                 }
+                                .disabled(!vm.isLoginButtonEnabled)
                             }
-                            .disabled(!vm.isLoginButtonEnabled)
                         }
                     }
                     

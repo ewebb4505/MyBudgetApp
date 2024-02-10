@@ -66,6 +66,7 @@ class LoginCreateAccountViewModel: ObservableObject {
         processingRequest = false
         appEnv.setUser(response.user)
         appEnv.setToken(response.token)
+        appEnv.setPassword(loginNamePassword)
         return true
     }
     
@@ -82,6 +83,8 @@ class LoginCreateAccountViewModel: ObservableObject {
         // set user in env here
         processingRequest = false
         appEnv.setUser(response.user)
+        appEnv.setToken(response.token)
+        appEnv.setPassword(createAccountPassword)
         return true
     }
     
@@ -91,5 +94,13 @@ class LoginCreateAccountViewModel: ObservableObject {
     
     func checkCreateAccountPassword() {
         showPasswordsNotMatchingForCreateAccount = createAccountPassword != createAccountPasswordCheck
+    }
+    
+    func clearInputs() {
+        createAccountName = ""
+        createAccountPassword = ""
+        createAccountPasswordCheck = ""
+        loginNameInput = ""
+        loginNamePassword = ""
     }
 }

@@ -34,6 +34,5 @@ struct AuthNetworkService: AuthNetworkServiceProtocol {
             print(error)
             return nil
         }
-        
     }
 }

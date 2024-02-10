@@ -11,7 +11,9 @@ class MyAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     private var appEnv = AppEnvironmentManager.instance
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        appEnv.getUser()
+        Task {
+            await appEnv.setUserOnLaunch()
+        }
         return true
     }
 }

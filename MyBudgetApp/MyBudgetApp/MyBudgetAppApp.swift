@@ -10,12 +10,34 @@ import SwiftUI
 @main
 struct MyBudgetAppApp: App {
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
+    @StateObject var transactionViewModel: TransactionsViewModel = .init()
     
-    
+    @State private var selection: String = "0"
     var body: some Scene {
         WindowGroup {
             Group {
-                HomeView()
+                TabView(selection: $selection) {
+                    HomeView()
+                        .tabItem {
+                            Label("Home", systemImage: "house")
+                        }
+                        .tag("0")
+                    TransactionMainTabView(viewModel: transactionViewModel)
+                        .tabItem {
+                            Label("Transactions", systemImage: "dollarsign.arrow.circlepath")
+                        }
+                        .tag("1")
+                    Text("Budgets")
+                        .tabItem {
+                            Label("Budgets", systemImage: "creditcard.fill")
+                        }
+                        .tag("2")
+                    Text("Tags")
+                        .tabItem {
+                            Label("Notification", systemImage: "bell")
+                        }
+                        .tag("3")
+                }
             }
         }
     }

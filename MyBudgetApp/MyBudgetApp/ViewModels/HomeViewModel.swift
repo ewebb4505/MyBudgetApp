@@ -84,7 +84,7 @@ class HomeViewModel: ObservableObject {
             let transactions = await transactionsNetworkService.getTransactions(fromDate: budget.startDate,
                                                                                 toDate: budget.endDate,
                                                                                 n: nil)
-            var totalSpent: Double = transactions.reduce(0) { partialResult, transactions in
+            let totalSpent: Double = transactions.reduce(0) { partialResult, transactions in
                 partialResult + transactions.amount
             }
             
