@@ -22,10 +22,11 @@ struct TransactionsController: RouteCollection {
     
     // TESTING (Nov 13)
     func getTransactions(req: Request) async throws -> [Transaction] {
-        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+        req.logger.debug("\n\n\n \(req.description) \n\n\n")
+        guard let user = try? req.auth.require(User.self).asPublic() else {
             throw Abort(.badRequest, reason: "could not find user id.")
         }
-        
+        let userID = user.id
         // if "n" query param is present then get that number of results
         let nParam: Int? = Int(req.query["n"] ?? "")
         let formatter = DateFormatter()

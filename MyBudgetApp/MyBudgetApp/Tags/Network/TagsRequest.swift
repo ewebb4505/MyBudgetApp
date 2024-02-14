@@ -55,6 +55,6 @@ enum TagsRequest: RequestProtocol {
     }
     
     var addAuthorizationToken: Bool {
-        false
+        true
     }
 }

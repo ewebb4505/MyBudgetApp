@@ -76,7 +76,9 @@ extension RequestProtocol {
         }
 
         if addAuthorizationToken {
-            urlRequest.setValue(authToken, forHTTPHeaderField: "Authorization")
+            let auth = "\(authToken)"
+            let bearerString = "Bearer \(auth)"
+            urlRequest.setValue(bearerString, forHTTPHeaderField: "Authorization")
         }
         
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")

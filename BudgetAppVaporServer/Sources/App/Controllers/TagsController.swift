@@ -24,9 +24,10 @@ struct TagsController: RouteCollection {
     }
     
     func getTags(req: Request) async throws -> [Tag] {
-        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+        guard let user = try? req.auth.require(User.self).asPublic() else {
             throw Abort(.badRequest, reason: "could not find user id.")
         }
+        let userID = user.id
         return try await Tag.query(on: req.db).filter(\.$user.$id == userID).all()
     }
     

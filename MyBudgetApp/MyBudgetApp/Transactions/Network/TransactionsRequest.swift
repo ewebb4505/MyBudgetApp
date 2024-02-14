@@ -95,6 +95,6 @@ enum TransactionsRequest: RequestProtocol {
     }
     
     var addAuthorizationToken: Bool {
-        false
+        true
     }
 }

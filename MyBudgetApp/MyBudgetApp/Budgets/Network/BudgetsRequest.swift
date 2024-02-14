@@ -58,6 +58,6 @@ enum BudgetRequest: RequestProtocol {
     }
     
     var addAuthorizationToken: Bool {
-        false
+        true
     }
 }
