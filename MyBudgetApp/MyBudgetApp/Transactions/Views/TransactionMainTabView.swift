@@ -9,19 +9,34 @@ import SwiftUI
 
 struct TransactionMainTabView: View {
     @ObservedObject var viewModel: TransactionsViewModel
+    @State private var showAddTransactionSheet: Bool = false
     
     var body: some View {
-        VStack {
-            TransactionsTableView()
-        }
-        .onAppear {
-            
-        }
-        .environmentObject(viewModel)
-        .navigationTitle("Transactions")
-        .searchable(text: .constant(""))
-        .toolbar {
-            toolbarContent
+        NavigationStack{
+            VStack {
+                TransactionsTableView(showAddTransactionSheet: $showAddTransactionSheet)
+            }
+            .onAppear {}
+            .environmentObject(viewModel)
+            .navigationTitle("Transactions")
+            //.searchable(text: .constant(""))
+            .toolbar {
+                toolbarContent
+            }
+            .sheet(isPresented: $showAddTransactionSheet) {
+                AddTransactionView(transactionType: $viewModel.transactionType,
+                                   transactionName: $viewModel.transactionName,
+                                   transactionAmount: $viewModel.transactionAmount,
+                                   shouldDismissNewTransactionView: $viewModel.shouldDismissNewTransactionView,
+                                   shouldShowErrorCreatingNewTransaction: $viewModel.errorCreatingNewTransaction) { [weak viewModel] in
+                    await viewModel?.submitNewTransaction()
+                }
+            }
+            .onChange(of: viewModel.shouldDismissNewTransactionView) { oldValue, newValue in
+                if newValue {
+                    showAddTransactionSheet = false
+                }
+            }
         }
     }
     
@@ -29,9 +44,9 @@ struct TransactionMainTabView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem {
             Button {
-                
+                showAddTransactionSheet = true
             } label: {
-                Image("plus")
+                Image(systemName: "plus.circle")
             }
         }
     }

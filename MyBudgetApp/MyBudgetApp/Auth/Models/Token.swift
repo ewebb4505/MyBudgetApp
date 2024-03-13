@@ -37,7 +37,7 @@ class Token: TokenProtocol, Codable {
         guard let expires = expiresAtDate else {
             return true
         }
-        
+        print("Has Token expired? \n\n now: \(now) \n\n expireDate: \(expires)")
         return now > expires
     }
     

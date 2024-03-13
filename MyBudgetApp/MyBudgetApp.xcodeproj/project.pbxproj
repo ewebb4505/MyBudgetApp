@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01028BF52B6AC7F9003FCC68 /* AppEnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */; };
 		01028BF82B6ACB9C003FCC68 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF72B6ACB9C003FCC68 /* DebugView.swift */; };
+		01361B772B8D246800773F6C /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B762B8D246800773F6C /* AddTransactionView.swift */; };
 		0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */; };
 		0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */; };
 		0145E2752B6DA36C00201C06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2742B6DA36C00201C06 /* User.swift */; };
@@ -98,6 +99,7 @@
 /* Begin PBXFileReference section */
 		01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentManager.swift; sourceTree = "<group>"; };
 		01028BF72B6ACB9C003FCC68 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		01361B762B8D246800773F6C /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
 		0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCreateAccountView.swift; sourceTree = "<group>"; };
 		0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0145E2742B6DA36C00201C06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				018B3E962B01B689000C2054 /* TransactionDataRow.swift */,
 				0145E29D2B7807A700201C06 /* TransactionMainTabView.swift */,
 				0145E29F2B78082E00201C06 /* TransactionsTableView.swift */,
+				01361B762B8D246800773F6C /* AddTransactionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				018B3E842B0169A8000C2054 /* Budget.swift in Sources */,
 				018B3E5F2B015EDB000C2054 /* APIConstants.swift in Sources */,
 				018B3E6F2B01611E000C2054 /* BudgetsRequest.swift in Sources */,
+				01361B772B8D246800773F6C /* AddTransactionView.swift in Sources */,
 				018B3E262B015D5C000C2054 /* MyBudgetAppApp.swift in Sources */,
 				0145E2902B75B01600201C06 /* AccessTokenManagerProtocol.swift in Sources */,
 				018B3E9D2B01BEF3000C2054 /* CurrentBudgetCardView.swift in Sources */,

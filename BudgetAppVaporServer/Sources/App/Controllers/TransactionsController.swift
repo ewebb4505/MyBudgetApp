@@ -202,7 +202,7 @@ struct CreateTransactionRequest: Content {
     var title: String
     var amount: Double
     var date: String
-    var category: CategoryID
+    var category: CategoryID?
     var tags: [String]
 }
 

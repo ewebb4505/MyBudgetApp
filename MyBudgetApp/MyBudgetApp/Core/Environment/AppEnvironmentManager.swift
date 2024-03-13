@@ -32,11 +32,20 @@ final class AppEnvironmentManager {
     
     //MARK: User Management
     
+    //TODO: Refactor
     func setUserOnLaunch() async {
         user = UserKeychainManager.getUser(getUsername() ?? "")
         let token = getToken()
-        if let token {
-            
+        if let token, let expireDate = token.expiresAtDate {
+            if expireDate < .now {
+                if let user, let password = getPassword() {
+                    if let login = await network.loginUser(username: user.username, password: password) {
+                        setToken(login.token)
+                    }
+                } else {
+                    return
+                }
+            }
         } else {
             if let user, let password = getPassword() {
                 if let login = await network.loginUser(username: user.username, password: password) {

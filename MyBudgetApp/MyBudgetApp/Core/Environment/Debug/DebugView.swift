@@ -25,6 +25,39 @@ struct DebugView: View {
                     .buttonStyle(.borderedProminent)
                 }
             }
+            
+            if appEnv.user != nil {
+                Section("Auth Token") {
+                    HStack {
+                        Text("Auth Token")
+                        Spacer()
+                        if let token = appEnv.getToken() {
+                            Text("\(token.token)")
+                                .foregroundStyle(.secondary)
+                        } else {
+                            Text("NONE")
+                                .foregroundStyle(.red)
+                        }
+                    }
+                    
+                    HStack {
+                        Text("Is Expired?")
+                        Spacer()
+                        if let token = appEnv.getToken() {
+                            if token.hasExpired() {
+                                Text("yes")
+                                    .foregroundStyle(.red)
+                            } else {
+                                Text("no")
+                                    .foregroundStyle(.green)
+                            }
+                        } else {
+                            Text("NONE")
+                                .foregroundStyle(.red)
+                        }                    }
+                }
+            }
+            
         }
     }
 }

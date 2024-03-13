@@ -19,9 +19,9 @@ enum TransactionsRequest: RequestProtocol {
         case .getTransactions(_, _, _, _):
             "/transactions"
         case .createTransactions(_, _, _, _):
-            "/transaction"
+            "/transactions"
         case .deleteTransaction(_):
-            "/transaction"
+            "/transactions"
         case .addTagsToTransaction(_, _):
             "/transaction/tags"
         case .addTransactionToBudgetCategory(_, _):
