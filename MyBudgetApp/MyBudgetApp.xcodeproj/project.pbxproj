@@ -10,6 +10,10 @@
 		01028BF52B6AC7F9003FCC68 /* AppEnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */; };
 		01028BF82B6ACB9C003FCC68 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01028BF72B6ACB9C003FCC68 /* DebugView.swift */; };
 		01361B772B8D246800773F6C /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B762B8D246800773F6C /* AddTransactionView.swift */; };
+		01361B792BA2938400773F6C /* TagsMainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B782BA2938400773F6C /* TagsMainTabView.swift */; };
+		01361B7C2BA2939D00773F6C /* TagsMainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */; };
+		01361B7E2BA298B900773F6C /* TagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7D2BA298B900773F6C /* TagDetailView.swift */; };
+		01361B802BA2995700773F6C /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7F2BA2995700773F6C /* AddTagView.swift */; };
 		0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */; };
 		0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */; };
 		0145E2752B6DA36C00201C06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2742B6DA36C00201C06 /* User.swift */; };
@@ -100,6 +104,10 @@
 		01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentManager.swift; sourceTree = "<group>"; };
 		01028BF72B6ACB9C003FCC68 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		01361B762B8D246800773F6C /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		01361B782BA2938400773F6C /* TagsMainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsMainTabView.swift; sourceTree = "<group>"; };
+		01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsMainTabViewModel.swift; sourceTree = "<group>"; };
+		01361B7D2BA298B900773F6C /* TagDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDetailView.swift; sourceTree = "<group>"; };
+		01361B7F2BA2995700773F6C /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
 		0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCreateAccountView.swift; sourceTree = "<group>"; };
 		0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0145E2742B6DA36C00201C06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -211,6 +219,14 @@
 				0158818C2B04F8C500EB3795 /* IsSelected.swift */,
 			);
 			path = EnvironmentValues;
+			sourceTree = "<group>";
+		};
+		01361B7A2BA2938C00773F6C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0145E26F2B6DA34700201C06 /* Auth */ = {
@@ -432,6 +448,7 @@
 		018B3E522B015D96000C2054 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				01361B7A2BA2938C00773F6C /* ViewModel */,
 				018B3E982B01B9B8000C2054 /* Views */,
 				018B3E782B016828000C2054 /* Models */,
 				018B3E702B016591000C2054 /* Network */,
@@ -584,6 +601,9 @@
 			isa = PBXGroup;
 			children = (
 				018B3E992B01B9C7000C2054 /* TagBadge.swift */,
+				01361B782BA2938400773F6C /* TagsMainTabView.swift */,
+				01361B7D2BA298B900773F6C /* TagDetailView.swift */,
+				01361B7F2BA2995700773F6C /* AddTagView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -738,6 +758,7 @@
 				0145E2822B6EF1CE00201C06 /* TokenKeychainManger.swift in Sources */,
 				018B3E282B015D5C000C2054 /* ContentView.swift in Sources */,
 				018B3E842B0169A8000C2054 /* Budget.swift in Sources */,
+				01361B7E2BA298B900773F6C /* TagDetailView.swift in Sources */,
 				018B3E5F2B015EDB000C2054 /* APIConstants.swift in Sources */,
 				018B3E6F2B01611E000C2054 /* BudgetsRequest.swift in Sources */,
 				01361B772B8D246800773F6C /* AddTransactionView.swift in Sources */,
@@ -746,6 +767,7 @@
 				018B3E9D2B01BEF3000C2054 /* CurrentBudgetCardView.swift in Sources */,
 				018B3E692B016001000C2054 /* AuthTokenRequest.swift in Sources */,
 				018B3E652B015F9E000C2054 /* RequestManager.swift in Sources */,
+				01361B802BA2995700773F6C /* AddTagView.swift in Sources */,
 				0145E2A32B78090300201C06 /* TransactionsViewModel.swift in Sources */,
 				0145E28E2B75AC2500201C06 /* TokenKeychainManagable.swift in Sources */,
 				0145E2862B6FFF5E00201C06 /* KeychainHelper.swift in Sources */,
@@ -782,8 +804,10 @@
 				0145E27B2B6E0C4300201C06 /* AuthNetworkService.swift in Sources */,
 				0158818D2B04F8C500EB3795 /* IsSelected.swift in Sources */,
 				018B3E722B0165A1000C2054 /* TagsRequest.swift in Sources */,
+				01361B792BA2938400773F6C /* TagsMainTabView.swift in Sources */,
 				015881812B0457BF00EB3795 /* CreateTransactionView.swift in Sources */,
 				01028BF82B6ACB9C003FCC68 /* DebugView.swift in Sources */,
+				01361B7C2BA2939D00773F6C /* TagsMainTabViewModel.swift in Sources */,
 				018B3E672B015FD0000C2054 /* NetworkRequestManager.swift in Sources */,
 				0158817A2B04545E00EB3795 /* TransparentFullScreenCover.swift in Sources */,
 				0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */,

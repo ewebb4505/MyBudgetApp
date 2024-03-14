@@ -55,7 +55,7 @@ struct TagsController: RouteCollection {
             throw Abort(.badRequest, reason: "could not find user id.")
         }
     
-        let tagRequest = try req.content.decode(Tag.self)
+        let tagRequest = try req.content.decode(CreateTagRequest.self)
         let tag = Tag(userID: userID, title: tagRequest.title)
         try await tag.save(on: req.db)
         return tag
@@ -89,4 +89,8 @@ struct TagsController: RouteCollection {
         try await requestedTag.delete(on: req.db)
         return .ok
     }
+}
+
+struct CreateTagRequest: Content {
+    var title: String
 }

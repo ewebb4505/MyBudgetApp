@@ -10,9 +10,13 @@ import SwiftUI
 struct AddTransactionView: View {
     @Environment(\.dismiss) var dismiss
     
+    var tags: [Tag]
+    
     @Binding var transactionType: Int
     @Binding var transactionName: String
     @Binding var transactionAmount: String
+    @Binding var transactionDate: Date
+    @Binding var selectedTag: Tag?
     @Binding var shouldDismissNewTransactionView: Bool
     @Binding var shouldShowErrorCreatingNewTransaction: Bool
     
@@ -31,6 +35,17 @@ struct AddTransactionView: View {
                     TextField("Name", text: $transactionName)
                     
                     TextField("Amount", text: $transactionAmount)
+                    
+                    DatePicker("Date of Transaction", selection: $transactionDate, displayedComponents: .date)
+                        .datePickerStyle(.automatic)
+                }
+                
+                Section("Tag this transaction") {
+                    Picker("Tag", selection: $selectedTag) {
+                         ForEach(tags) {
+                             Text($0.title)
+                         }
+                   }.pickerStyle(.navigationLink)
                 }
                 
                 Section {

@@ -45,8 +45,12 @@ struct TransactionsTableView: View {
                 .padding()
             }
         } else {
-            List(viewModel.transactions, id: \.id) { transaction in
-                TransactionDataRow(transcation: transaction)
+            List {
+                Section("Last 10 Transactions") {
+                    ForEach(viewModel.transactions) { transaction in
+                        TransactionDataRow(transcation: transaction)
+                    }
+                }
             }
         }
     }

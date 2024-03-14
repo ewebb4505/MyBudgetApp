@@ -11,6 +11,7 @@ import SwiftUI
 struct MyBudgetAppApp: App {
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     @StateObject var transactionViewModel: TransactionsViewModel = .init()
+    @StateObject var tagsViewModel: TagsMainTabViewModel = .init()
     
     @State private var selection: String = "0"
     var body: some Scene {
@@ -32,9 +33,9 @@ struct MyBudgetAppApp: App {
                             Label("Budgets", systemImage: "creditcard.fill")
                         }
                         .tag("2")
-                    Text("Tags")
+                    TagsMainTabView(viewModel: tagsViewModel)
                         .tabItem {
-                            Label("Notification", systemImage: "bell")
+                            Label("Tags", systemImage: "tag.fill")
                         }
                         .tag("3")
                 }

@@ -16,7 +16,12 @@ struct TransactionMainTabView: View {
             VStack {
                 TransactionsTableView(showAddTransactionSheet: $showAddTransactionSheet)
             }
-            .onAppear {}
+            .onAppear {
+                Task {
+                    await viewModel.fetchTransactions()
+                    await viewModel.fetchTags()
+                }
+            }
             .environmentObject(viewModel)
             .navigationTitle("Transactions")
             //.searchable(text: .constant(""))
@@ -24,9 +29,12 @@ struct TransactionMainTabView: View {
                 toolbarContent
             }
             .sheet(isPresented: $showAddTransactionSheet) {
-                AddTransactionView(transactionType: $viewModel.transactionType,
+                AddTransactionView(tags: viewModel.tags,
+                                   transactionType: $viewModel.transactionType,
                                    transactionName: $viewModel.transactionName,
                                    transactionAmount: $viewModel.transactionAmount,
+                                   transactionDate: $viewModel.transactionDate, 
+                                   selectedTag: $viewModel.selectedTag, 
                                    shouldDismissNewTransactionView: $viewModel.shouldDismissNewTransactionView,
                                    shouldShowErrorCreatingNewTransaction: $viewModel.errorCreatingNewTransaction) { [weak viewModel] in
                     await viewModel?.submitNewTransaction()
@@ -35,6 +43,13 @@ struct TransactionMainTabView: View {
             .onChange(of: viewModel.shouldDismissNewTransactionView) { oldValue, newValue in
                 if newValue {
                     showAddTransactionSheet = false
+                }
+            }
+            .onChange(of: viewModel.shouldReloadTransactionsData) { oldValue, newValue in
+                if newValue {
+                    Task {
+                        await viewModel.fetchTransactions()
+                    }
                 }
             }
         }
