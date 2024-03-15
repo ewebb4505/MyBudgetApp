@@ -14,6 +14,7 @@
 		01361B7C2BA2939D00773F6C /* TagsMainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */; };
 		01361B7E2BA298B900773F6C /* TagDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7D2BA298B900773F6C /* TagDetailView.swift */; };
 		01361B802BA2995700773F6C /* AddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B7F2BA2995700773F6C /* AddTagView.swift */; };
+		01361B822BA3EF1300773F6C /* TagDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01361B812BA3EF1300773F6C /* TagDetailViewModel.swift */; };
 		0145E26C2B6D9AA200201C06 /* LoginCreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */; };
 		0145E26E2B6D9AEB00201C06 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */; };
 		0145E2752B6DA36C00201C06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0145E2742B6DA36C00201C06 /* User.swift */; };
@@ -108,6 +109,7 @@
 		01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsMainTabViewModel.swift; sourceTree = "<group>"; };
 		01361B7D2BA298B900773F6C /* TagDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDetailView.swift; sourceTree = "<group>"; };
 		01361B7F2BA2995700773F6C /* AddTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagView.swift; sourceTree = "<group>"; };
+		01361B812BA3EF1300773F6C /* TagDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDetailViewModel.swift; sourceTree = "<group>"; };
 		0145E26B2B6D9AA200201C06 /* LoginCreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCreateAccountView.swift; sourceTree = "<group>"; };
 		0145E26D2B6D9AEB00201C06 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0145E2742B6DA36C00201C06 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				01361B7B2BA2939D00773F6C /* TagsMainTabViewModel.swift */,
+				01361B812BA3EF1300773F6C /* TagDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				0145E2942B75B16300201C06 /* AuthNetworkManager.swift in Sources */,
 				0145E2802B6EF18200201C06 /* UserKeychainManager.swift in Sources */,
 				018B3E8E2B016B83000C2054 /* BudgetCategoryNetworkService.swift in Sources */,
+				01361B822BA3EF1300773F6C /* TagDetailViewModel.swift in Sources */,
 				018B3E812B016965000C2054 /* Transaction.swift in Sources */,
 				018B3E882B016A07000C2054 /* TransactionsNetworkService.swift in Sources */,
 				018B3E6C2B0160E5000C2054 /* TransactionsRequest.swift in Sources */,

@@ -10,15 +10,34 @@ import Foundation
 struct TagsNetworkService: TagsNetworkServiceProtocol {
     let requestManager: RequestManagerProtocol
     
-    func getTags() async -> [Tag] {
+    func getTags() async -> Tags {
         let requestData = TagsRequest.getTags
         do {
-          let tags: [Tag] = try await requestManager.perform(requestData)
-          return tags
+            let tags: [Tag] = try await requestManager.perform(requestData)
+            return tags
         } catch {
-          // 5
-          print(error.localizedDescription)
-          return []
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func getTransactions(tag: Tag.ID, n: Int) async -> Transactions {
+        do {
+            let transactions: Transactions = try await requestManager.perform(TagsRequest.getTransactions(tag, n, nil, nil))
+            return transactions
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func getTransactions(tag: Tag.ID, fromDate: Date?, toDate: Date?) async -> Transactions {
+        do {
+            let transactions: Transactions = try await requestManager.perform(TagsRequest.getTransactions(tag, -1, fromDate, toDate))
+            return transactions
+        } catch {
+            print(error.localizedDescription)
+            return []
         }
     }
     

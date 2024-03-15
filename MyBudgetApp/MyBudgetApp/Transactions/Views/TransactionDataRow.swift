@@ -18,12 +18,27 @@ struct TransactionDataRow: View {
     }
     
     var body: some View {
-        HStack {
-            transactionDetails
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                transactionDetails
+                
+                Spacer()
+                
+                transactionAmount
+            }
             
-            Spacer()
-            
-            transactionAmount
+            if let tags = transcation.tags, !tags.isEmpty {
+                HStack(spacing: 2) {
+                    Text("Tags: ")
+                        .bold()
+                        .font(.subheadline)
+                    ForEach(tags) { tag in
+                        Text(tag.title)
+                            .bold()
+                            .font(.subheadline)
+                    }
+                }
+            }
         }
         .padding(4)
     }

@@ -40,12 +40,16 @@ struct AddTransactionView: View {
                         .datePickerStyle(.automatic)
                 }
                 
-                Section("Tag this transaction") {
-                    Picker("Tag", selection: $selectedTag) {
-                         ForEach(tags) {
-                             Text($0.title)
-                         }
-                   }.pickerStyle(.navigationLink)
+                if !tags.isEmpty {
+                    Section("Tag this transaction") {
+                        Picker("Tag", selection: $selectedTag) {
+                            Text("None").tag(nil as Tag?)
+                            
+                            ForEach(tags) {
+                                Text($0.title).tag($0 as Tag?)
+                            }
+                        }.pickerStyle(.navigationLink)
+                    }
                 }
                 
                 Section {

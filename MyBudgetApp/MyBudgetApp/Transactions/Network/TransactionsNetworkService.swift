@@ -10,7 +10,7 @@ import Foundation
 struct TransactionsNetworkService: TransactionsNetworkServiceProtocol {
     let requestManager: RequestManagerProtocol
     
-    func getTransactions(fromDate: Date?, toDate: Date?, n: Int?) async -> [Transaction] {
+    func getTransactions(fromDate: Date?, toDate: Date?, n: Int?) async -> Transactions {
         let requestData = TransactionsRequest.getTransactions(fromDate, toDate, nil, n)
         do {
           let transactions: [Transaction] = try await requestManager.perform(requestData)
@@ -21,7 +21,7 @@ struct TransactionsNetworkService: TransactionsNetworkServiceProtocol {
         }
     }
     
-    func getTransactions(onDate: Date?, n: Int?) async -> [Transaction] {
+    func getTransactions(onDate: Date?, n: Int?) async -> Transactions {
         let requestData = TransactionsRequest.getTransactions(nil, nil, onDate, n)
         do {
           let transactions: [Transaction] = try await requestManager.perform(requestData)
@@ -33,7 +33,7 @@ struct TransactionsNetworkService: TransactionsNetworkServiceProtocol {
     }
     
     
-    func getTransactions(n: Int?) async -> [Transaction] {
+    func getTransactions(n: Int?) async -> Transactions {
         let requestData = TransactionsRequest.getTransactions(nil, nil, nil, n)
         do {
           let transactions: [Transaction] = try await requestManager.perform(requestData)
@@ -42,6 +42,18 @@ struct TransactionsNetworkService: TransactionsNetworkServiceProtocol {
           print(error.localizedDescription)
           return []
         }
+    }
+    
+    func getTransactions(tag: Tag.ID) async -> Transactions {
+        []
+    }
+    
+    func getTransactions(tag: Tag.ID, n: Int) async -> Transactions {
+        []
+    }
+    
+    func getTransactions(tag: Tag.ID, fromDate: Date, toDate: Date) async -> Transactions {
+        []
     }
     
     func createTransaction(title: String, amount: Double, date: Date, tags: [Tag]) async -> Transaction? {

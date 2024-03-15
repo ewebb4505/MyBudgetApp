@@ -12,10 +12,12 @@ final class TagsMainTabViewModel: ObservableObject {
     @Published var tags: [Tag] = []
     @Published var tagToBeDeleted: Tag? = nil
     @Published var newTagTitle: String = ""
+    @Published var loadingNewTag: Bool = false
     @Published var errorCreatingTag: Bool = false
     @Published var errorDeletingTag: Bool = false
     @Published var shouldReloadTags: Bool = false
     @Published var showAddTagSheet: Bool = false
+    @Published var shouldDismissAddNewTagSheet: Bool = false
     
     private let tagsNetworkService: TagsNetworkServiceProtocol
     
@@ -29,16 +31,21 @@ final class TagsMainTabViewModel: ObservableObject {
     }
     
     func createTag() async {
+        loadingNewTag = true
         guard !newTagTitle.isEmpty else {
+            loadingNewTag = false
            return
         }
         
-        guard let tag = await tagsNetworkService.createTag(title: newTagTitle) else {
+        guard let _ = await tagsNetworkService.createTag(title: newTagTitle) else {
             errorCreatingTag = true
+            loadingNewTag = false
             return
         }
         
         errorCreatingTag = false
+        loadingNewTag = false
+        shouldDismissAddNewTagSheet = true
     }
     
     func deleteTag() async {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TagsMainTabView: View {
     @ObservedObject var viewModel: TagsMainTabViewModel
+    @State private var shouldShowAddTagSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -37,9 +38,17 @@ struct TagsMainTabView: View {
             .toolbar {
                 toolbarContent
             }
-            .sheet(isPresented: $viewModel.showAddTagSheet) {
-                AddTagView(tagName: $viewModel.newTagTitle) { [weak viewModel] in
+            .sheet(isPresented: $shouldShowAddTagSheet) {
+                AddTagView(tagName: $viewModel.newTagTitle,
+                           isLoading: $viewModel.loadingNewTag,
+                           errorLoading: $viewModel.errorCreatingTag,
+                           shouldDismiss: $viewModel.shouldDismissAddNewTagSheet) { [weak viewModel] in
                     await viewModel?.createTag()
+                }
+            }
+            .onChange(of: viewModel.shouldDismissAddNewTagSheet) { oldValue, newValue in
+                if newValue {
+                    shouldShowAddTagSheet = false
                 }
             }
         }
@@ -49,7 +58,7 @@ struct TagsMainTabView: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem {
             Button {
-                viewModel.showAddTagSheet = true
+                shouldShowAddTagSheet = true
             } label: {
                 Image(systemName: "plus.circle")
             }

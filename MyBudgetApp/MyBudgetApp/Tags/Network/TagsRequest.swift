@@ -9,6 +9,7 @@ import Foundation
 
 enum TagsRequest: RequestProtocol {
     case getTags
+    case getTransactions(Tag.ID, Int, Date?, Date?)
     case createTag(String)
     case deleteTag(UUID)
     
@@ -19,6 +20,8 @@ enum TagsRequest: RequestProtocol {
         case .createTag(_):
             "/tags"
         case .deleteTag(_):
+            "/tags"
+        case .getTransactions(_, _, _, _):
             "/tags"
         }
     }
@@ -31,6 +34,8 @@ enum TagsRequest: RequestProtocol {
             [:]
         case .deleteTag(let id):
             ["id": id.uuidString]
+        case .getTransactions(_, _, _, _):
+            [:]
         }
     }
     
@@ -40,6 +45,8 @@ enum TagsRequest: RequestProtocol {
             [:]
         case .createTag(let title):
             ["title": title]
+        case .getTransactions(_, _, _, _):
+            [:]
         }
     }
     
@@ -51,6 +58,8 @@ enum TagsRequest: RequestProtocol {
             return .POST
         case .deleteTag(_):
             return .DELETE
+        case .getTransactions(_, _, _, _):
+            return .GET
         }
     }
     

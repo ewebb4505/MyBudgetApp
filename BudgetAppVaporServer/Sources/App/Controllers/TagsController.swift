@@ -21,6 +21,7 @@ struct TagsController: RouteCollection {
         let tag = routes.grouped("tag")
         let tokenProtected2 = tag.grouped(Token.authenticator())
         tokenProtected2.get(use: getTag)
+        tokenProtected2.get("tag", "transactions", use: getTagTransactions)
     }
     
     func getTags(req: Request) async throws -> [Tag] {
@@ -48,6 +49,19 @@ struct TagsController: RouteCollection {
             throw Abort(.notFound)
         }
         return tag
+    }
+    
+    func getTagTransactions(req: Request) async throws -> [Transaction] {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
+        guard let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: "")) else {
+            throw Abort(.badRequest, reason: "could not tag id.")
+        }
+        
+        // TODO: Get transactions with tag id
+        return []
     }
     
     func createTag(req: Request) async throws -> Tag {

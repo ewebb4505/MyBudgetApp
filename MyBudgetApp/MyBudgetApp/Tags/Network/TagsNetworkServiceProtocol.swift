@@ -8,7 +8,12 @@
 import Foundation
 
 protocol TagsNetworkServiceProtocol {
-    func getTags() async -> [Tag]
+    typealias Transactions = [Transaction]
+    typealias Tags = [Tag]
+    
+    func getTags() async -> Tags
+    func getTransactions(tag: Tag.ID, n: Int) async -> Transactions
+    func getTransactions(tag: Tag.ID, fromDate: Date?, toDate: Date?) async -> Transactions
     func createTag(title: String) async -> Tag?
     func deleteTag(id: UUID) async -> Bool
 }

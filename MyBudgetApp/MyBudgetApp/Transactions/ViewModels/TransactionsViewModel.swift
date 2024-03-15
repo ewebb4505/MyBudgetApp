@@ -51,10 +51,16 @@ final class TransactionsViewModel: ObservableObject {
         
         let amountWithTwoDecimals = (amount * 100).rounded() / 100
         let signedAmount = transactionType == 0 ? -amountWithTwoDecimals : amountWithTwoDecimals
+        
+        var addedTags: [Tag] = []
+        if let selectedTag {
+            addedTags = [selectedTag]
+        }
+        
         guard let _ = await network.createTransaction(title: transactionName,
                                                       amount: signedAmount,
                                                       date: transactionDate,
-                                                      tags: []) else {
+                                                      tags: addedTags) else {
             errorCreatingNewTransaction = true
             print("\n\n\n Error creating new transaction \n\n\n")
             return
