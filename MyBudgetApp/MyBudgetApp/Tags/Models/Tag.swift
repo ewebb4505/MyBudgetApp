@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Charts
 
 struct Tag: Codable, Hashable, Identifiable {
     var id: UUID
     var title: String
+    var totalAmountTracked: Double?
 }

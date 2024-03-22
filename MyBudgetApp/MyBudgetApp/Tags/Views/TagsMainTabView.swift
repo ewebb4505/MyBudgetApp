@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct TagsMainTabView: View {
     @ObservedObject var viewModel: TagsMainTabViewModel
@@ -14,14 +15,28 @@ struct TagsMainTabView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.tags) { tag in
-                    NavigationLink(value: tag) {
-                        HStack {
-                            Text(tag.title)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "info.circle")
+                if !viewModel.tags.isEmpty {
+                    Section {
+                        Chart {
+                            tagSpendingChart
+                        }
+                        .chartYAxis {
+                            AxisMarks(format: Decimal.FormatStyle.Currency.currency(code: "USD"))
+                        }
+                        .padding(.vertical)
+                    }
+                }
+                
+                Section {
+                    ForEach(viewModel.tags) { tag in
+                        NavigationLink(value: tag) {
+                            HStack {
+                                Text(tag.title)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "info.circle")
+                            }
                         }
                     }
                 }
@@ -61,6 +76,18 @@ struct TagsMainTabView: View {
                 shouldShowAddTagSheet = true
             } label: {
                 Image(systemName: "plus.circle")
+            }
+        }
+    }
+    
+    @ChartContentBuilder
+    private var tagSpendingChart: some ChartContent {
+        ForEach(viewModel.tags) { tag in
+            if let amount = tag.totalAmountTracked, amount != 0 {
+                BarMark(
+                    x: .value("Shape Type", tag.title),
+                    y: .value("Total Spent", abs(amount))
+                ).foregroundStyle(.red)
             }
         }
     }

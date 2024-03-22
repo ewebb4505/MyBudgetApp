@@ -19,8 +19,18 @@ struct TagDetailView: View {
             if viewModel.tenMostRecentTransactions.isEmpty {
                 Text("This Tag has no transactions")
             } else {
-                ForEach(viewModel.tenMostRecentTransactions) { transaction in
-                    Text(transaction.title)
+                List {
+                    Section {
+                        ForEach(viewModel.tenMostRecentTransactions) { transaction in
+                            TransactionDataRow(transcation: transaction)
+                        }
+                    } header: {
+                        HStack {
+                            Text("Last 10 transactions")
+                            Spacer()
+                            Text("\(viewModel.totalSpending)")
+                        }
+                    }
                 }
             }
         }

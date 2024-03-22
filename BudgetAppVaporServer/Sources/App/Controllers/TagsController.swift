@@ -24,12 +24,35 @@ struct TagsController: RouteCollection {
         tokenProtected2.get("transactions", use: getTagTransactions)
     }
     
-    func getTags(req: Request) async throws -> [Tag] {
+    func getTags(req: Request) async throws -> [GetTagResponse] {
         guard let user = try? req.auth.require(User.self).asPublic() else {
             throw Abort(.badRequest, reason: "could not find user id.")
         }
         let userID = user.id
-        return try await Tag.query(on: req.db).filter(\.$user.$id == userID).all()
+        let tags = try await Tag.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .all()
+        
+        var tagResponses: [GetTagResponse] = []
+        for tag in tags {
+            let transactions = try await TransactionTagPivot.query(on: req.db)
+                .filter(\.$user.$id == userID)
+                .filter(\.$tag.$id == tag.requireID())
+                .with(\.$transaction)
+                .all()
+            
+            var totalSpent: Double = transactions.reduce(into: 0) { partialResult, transactionTag in
+                partialResult += transactionTag.transaction.amount
+            }
+            
+            var getTagResponse = GetTagResponse(id: try tag.requireID(),
+                                                title: tag.title,
+                                                totalAmountTracked: totalSpent)
+            
+            tagResponses.append(getTagResponse)
+        }
+        
+        return tagResponses
     }
     
     func getTag(req: Request) async throws -> Tag {
@@ -138,4 +161,14 @@ struct TagsController: RouteCollection {
 
 struct CreateTagRequest: Content {
     var title: String
+}
+
+struct GetTagsResponse: Content {
+    var tags: [GetTagsResponse]
+}
+
+struct GetTagResponse: Content {
+    var id: Tag.IDValue
+    var title: String
+    var totalAmountTracked: Double
 }

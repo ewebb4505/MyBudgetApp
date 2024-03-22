@@ -24,7 +24,9 @@ class TagDetailViewModel {
     @MainActor
     func getLastTenTransactionsForTag() async {
         tenMostRecentTransactions = await getLastNTransactionsForTag(n: 10)
-        print(tenMostRecentTransactions)
+        totalSpending = tenMostRecentTransactions.reduce(into: 0) { partialResult, transaction in
+            partialResult += transaction.amount
+        }
     }
     
     private func getLastNTransactionsForTag(n: Int) async -> [Transaction] {

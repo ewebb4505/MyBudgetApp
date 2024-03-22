@@ -28,6 +28,7 @@ final class TagsMainTabViewModel: ObservableObject {
     func fetchTags() async {
         tags = await tagsNetworkService.getTags()
         shouldReloadTags = false
+        print(tags)
     }
     
     func createTag() async {
