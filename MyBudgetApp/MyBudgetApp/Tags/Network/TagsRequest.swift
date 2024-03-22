@@ -22,7 +22,7 @@ enum TagsRequest: RequestProtocol {
         case .deleteTag(_):
             "/tags"
         case .getTransactions(_, _, _, _):
-            "/tags"
+            "/tag/transactions"
         }
     }
     
@@ -34,8 +34,8 @@ enum TagsRequest: RequestProtocol {
             [:]
         case .deleteTag(let id):
             ["id": id.uuidString]
-        case .getTransactions(_, _, _, _):
-            [:]
+        case .getTransactions(let tagID, let n, let fromDate, let toDate):
+            createGetTransactionsURLParams(id: tagID, n: n, fromDate: fromDate, toDate: toDate)
         }
     }
     
@@ -65,5 +65,18 @@ enum TagsRequest: RequestProtocol {
     
     var addAuthorizationToken: Bool {
         true
+    }
+    
+    private func createGetTransactionsURLParams(id: Tag.ID, 
+                                                n: Int,
+                                                fromDate: Date?,
+                                                toDate: Date?) -> [String : String?] {
+        [
+            "id": id.uuidString,
+            "n": String(n),
+            "fromDate": fromDate?.ISO8601Format(),
+            "toDate": toDate?.ISO8601Format()
+        ]
+        
     }
 }

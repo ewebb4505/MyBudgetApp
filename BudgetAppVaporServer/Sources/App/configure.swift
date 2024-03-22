@@ -34,6 +34,7 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(UpdateBudget())
     app.migrations.add(UpdateBudgetCategory())
     app.migrations.add(UpdateTag())
+    app.migrations.add(UpdateTransactionTagPivotV2())
     
     app.logger.logLevel = .debug
     try await app.autoMigrate().get()

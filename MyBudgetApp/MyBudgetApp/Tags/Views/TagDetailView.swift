@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct TagDetailView: View {
-    let tag: Tag
+    let viewModel: TagDetailViewModel
+    
+    init(tag: Tag) {
+        self.viewModel = TagDetailViewModel(tag: tag)
+    }
     
     var body: some View {
-        Text(tag.title)
+        VStack {
+            if viewModel.tenMostRecentTransactions.isEmpty {
+                Text("This Tag has no transactions")
+            } else {
+                ForEach(viewModel.tenMostRecentTransactions) { transaction in
+                    Text(transaction.title)
+                }
+            }
+        }
+        .task {
+            await viewModel.getLastTenTransactionsForTag()
+        }
     }
 }

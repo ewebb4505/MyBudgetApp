@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Fluent
 import FluentKit
 import Vapor
 
@@ -17,6 +18,10 @@ final class TransactionTagsController: RouteCollection {
     }
     
     func getTagsForTransaction(req: Request) async throws -> [Tag] {
+        guard let user = try? req.auth.require(User.self).asPublic() else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
         let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
         req.logger.info("Requested ID: \(String(describing: id?.uuidString))")
         guard let transaction = try await Transaction.find(id, on: req.db) else {
@@ -26,6 +31,10 @@ final class TransactionTagsController: RouteCollection {
     }
     
     func addTagsForTransaction(req: Request) async throws -> Transaction {
+        guard let user = try? req.auth.require(User.self).asPublic() else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
         let addTagsToTransaction = try req.content.decode(AddTagsToTransaction.self)
         let id = UUID(uuidString: (addTagsToTransaction.id).replacingOccurrences(of: "\"", with: ""))
         do {
@@ -34,7 +43,9 @@ final class TransactionTagsController: RouteCollection {
                     guard let tag = try await Tag.find(tag, on: req.db) else {
                         throw Abort(.notFound, reason: "Tag ID \(tag) Not Found In Tags Table")
                     }
-                    try await TransactionTagPivot(transaction: transaction, tag: tag).save(on: req.db)
+                    try await TransactionTagPivot(transaction: transaction,
+                                                  tag: tag,
+                                                  userID: user.id).save(on: req.db)
                 }
                 return transaction
             } else {

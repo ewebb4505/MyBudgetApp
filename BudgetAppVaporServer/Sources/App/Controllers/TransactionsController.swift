@@ -146,7 +146,9 @@ struct TransactionsController: RouteCollection {
             guard let tag = try await Tag.find(id, on: req.db) else {
                 throw Abort(.notFound, reason: "Tag ID \(tag) Not Found In Tags Table")
             }
-            try await TransactionTagPivot(transaction: transaction, tag: tag).save(on: req.db)
+            try await TransactionTagPivot(transaction: transaction, 
+                                          tag: tag,
+                                          userID: userID).save(on: req.db)
         }
         
         return transaction

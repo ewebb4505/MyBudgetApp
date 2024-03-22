@@ -21,7 +21,7 @@ struct TagsController: RouteCollection {
         let tag = routes.grouped("tag")
         let tokenProtected2 = tag.grouped(Token.authenticator())
         tokenProtected2.get(use: getTag)
-        tokenProtected2.get("tag", "transactions", use: getTagTransactions)
+        tokenProtected2.get("transactions", use: getTagTransactions)
     }
     
     func getTags(req: Request) async throws -> [Tag] {
@@ -61,7 +61,38 @@ struct TagsController: RouteCollection {
         }
         
         // TODO: Get transactions with tag id
-        return []
+        let n: Int? = Int(req.query["n"] ?? "")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let fromParam: String = req.query["fromDate"] ?? ""
+        let toParam: String = req.query["toDate"] ?? ""
+        let from = formatter.date(from: fromParam)
+        req.logger.debug("FROM_DATE: \(String(describing: from)) from \(fromParam)")
+        let to = formatter.date(from: toParam)
+        req.logger.debug("TO_DATE: \(String(describing: to)) to \(toParam)")
+        
+        let transactions = try await TransactionTagPivot.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .filter(\.$tag.$id == id)
+            .with(\.$transaction)
+            .all()
+        
+        if let to, let from {
+            let filteredTransactions: [Transaction] = transactions.compactMap { $0.$transaction.value }
+                .filter { $0.date <= to && $0.date >= from }
+            
+            return filteredTransactions
+            
+        } else if let n {
+            let filteredTransactions: [Transaction] = Array(transactions.compactMap { $0.$transaction.value }
+                .sorted(by: { $0.date > $1.date })
+                .prefix(n))
+            
+            return filteredTransactions
+            
+        } else {
+            return transactions.compactMap { $0.$transaction.value }
+        }
     }
     
     func createTag(req: Request) async throws -> Tag {

@@ -14,6 +14,9 @@ final class TransactionTagPivot: Model {
     @ID(key: .id)
     var id: UUID?
     
+    @OptionalParent(key: "userID")
+    var user: User?
+    
     @Parent(key: "transactionID")
     var transaction: Transaction
       
@@ -22,9 +25,13 @@ final class TransactionTagPivot: Model {
     
     init() {}
     
-    init(id: UUID? = nil, transaction: Transaction, tag: Tag) throws {
+    init(id: UUID? = nil, 
+         transaction: Transaction,
+         tag: Tag,
+         userID: User.IDValue) throws {
         self.id = id
         self.$transaction.id = try transaction.requireID()
         self.$tag.id = try tag.requireID()
+        self.$user.id = userID
     }
 }

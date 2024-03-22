@@ -12,12 +12,22 @@ class TagDetailViewModel {
     let tag: Tag
     
     var totalSpending: Double = 0
-    var tenMostRecentTransactions: [Transaction] = []
+    private(set) var tenMostRecentTransactions: [Transaction] = []
     
     private let tagNetworkService: TagsNetworkServiceProtocol = TagsNetworkService(requestManager: RequestManager())
     private let transactionsNetworkService: TransactionsNetworkServiceProtocol = TransactionsNetworkService(requestManager: RequestManager())
     
     init(tag: Tag) {
         self.tag = tag
+    }
+    
+    @MainActor
+    func getLastTenTransactionsForTag() async {
+        tenMostRecentTransactions = await getLastNTransactionsForTag(n: 10)
+        print(tenMostRecentTransactions)
+    }
+    
+    private func getLastNTransactionsForTag(n: Int) async -> [Transaction] {
+        await tagNetworkService.getTransactions(tag: tag.id, n: n)
     }
 }
