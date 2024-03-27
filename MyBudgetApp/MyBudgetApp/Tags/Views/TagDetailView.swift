@@ -28,7 +28,7 @@ struct TagDetailView: View {
                         HStack {
                             Text("Last 10 transactions")
                             Spacer()
-                            Text("\(viewModel.totalSpending)")
+                            viewModel.totalSpending.displayColoredUSD()
                         }
                     }
                 }
@@ -37,5 +37,13 @@ struct TagDetailView: View {
         .task {
             await viewModel.getLastTenTransactionsForTag()
         }
+        .navigationTitle(viewModel.tag.title)
+    }
+}
+
+extension Double {
+    func displayColoredUSD() -> Text {
+        Text("$\(String(format: "%.2f", abs(self)))")
+            .foregroundStyle(self > 0 ? .green : .red)
     }
 }

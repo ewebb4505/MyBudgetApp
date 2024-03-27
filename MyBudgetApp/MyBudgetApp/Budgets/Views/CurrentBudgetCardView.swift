@@ -57,10 +57,10 @@ struct CurrentBudgetCardView: View {
     
     @ViewBuilder
     var categoriesScrollView: some View {
-        if !budget.categories.isEmpty {
+        if let categories = budget.categories, !categories.isEmpty {
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(budget.categories) { category in
+                    ForEach(categories) { category in
                         Text(category.title)
                     }
                 }

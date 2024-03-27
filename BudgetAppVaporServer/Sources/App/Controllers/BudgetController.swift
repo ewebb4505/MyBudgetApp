@@ -12,15 +12,15 @@ import Vapor
 
 struct BudgetController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        let tags = routes.grouped("budgets")
-        let tokenProtected = tags.grouped(Token.authenticator())
-        tags.get(use: getBudgets)
-        tags.post(use: createBudget)
-        tags.delete(use: deleteBudget)
+        let budgets = routes.grouped("budgets")
+        let tokenProtectedBudgetsRoutes = budgets.grouped(Token.authenticator())
+        tokenProtectedBudgetsRoutes.get(use: getBudgets)
+        tokenProtectedBudgetsRoutes.post(use: createBudget)
+        tokenProtectedBudgetsRoutes.delete(use: deleteBudget)
         
-        let tag = routes.grouped("budget")
-        let tokenProtected2 = tag.grouped(Token.authenticator())
-        tokenProtected2.get(use: getBudget)
+        let budget = routes.grouped("budget")
+        let tokenProtectedBudgetRoutes = budget.grouped(Token.authenticator())
+        tokenProtectedBudgetRoutes.get(use: getBudget)
     }
     
     // Works
@@ -46,28 +46,41 @@ struct BudgetController: RouteCollection {
         guard let user = try? req.auth.require(User.self), let userID = user.id else {
             throw Abort(.badRequest, reason: "could not find user id.")
         }
-        let budgetRequest = try req.content.decode(Budget.self)
-        let budget = Budget(userID: userID,
-                            title: budgetRequest.title,
-                            startDate: budgetRequest.startDate,
-                            endDate: budgetRequest.endDate,
-                            startingAmount: budgetRequest.startingAmount)
+        
+        let budgetRequest = try req.content.decode(CreateBudgetRequestObject.self)
+        let budget = try Budget(userID: user.requireID(),
+                                title: budgetRequest.title,
+                                startDate: budgetRequest.startDate,
+                                endDate: budgetRequest.endDate,
+                                startingAmount: budgetRequest.startingAmount)
+        
         try await budget.save(on: req.db)
+        print("\n\n\n\(budget.description)\n\n\n")
         return budget
     }
     
     //TODO: I don't think this works right. It's always getting the first element in the table
     func deleteBudget(req: Request) async throws -> HTTPStatus {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
         let id = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
         req.logger.info("Requested ID: \(String(describing: id?.uuidString))")
-        guard let requestedBudget = try await Budget.query(on: req.db).with(\.$categories).first() else {
+        
+        guard let requestedBudget = try await Budget.query(on: req.db)
+            .filter(\.$user.$id == userID)
+            .with(\.$categories)
+            .first() else {
             throw Abort(.notFound)
         }
         
         // delete the budget categories from this budget
         for category in requestedBudget.categories {
             do {
-                try await BudgetCategory.query(on: req.db).filter(\.$id == category.requireID())
+                try await BudgetCategory.query(on: req.db)
+                    .filter(\.$user.$id == userID)
+                    .filter(\.$id == category.requireID())
                     .all()
                     .delete(on: req.db)
             }
@@ -75,6 +88,7 @@ struct BudgetController: RouteCollection {
                 throw Abort(.notFound, reason: "category not found from budget category list")
             }
         }
+        
         try await requestedBudget.delete(on: req.db)
         return .ok
     }
@@ -88,4 +102,11 @@ struct BudgetController: RouteCollection {
         }
         return budget
     }
+}
+
+struct CreateBudgetRequestObject: Content {
+    var title: String
+    var startDate: Date
+    var endDate: Date
+    var startingAmount: Double
 }

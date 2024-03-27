@@ -12,6 +12,7 @@ struct MyBudgetAppApp: App {
     @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
     @StateObject var transactionViewModel: TransactionsViewModel = .init()
     @StateObject var tagsViewModel: TagsMainTabViewModel = .init()
+    var budgetsViewModel: BudgetsMainTabViewModel = .init()
     
     @State private var selection: String = "0"
     var body: some Scene {
@@ -28,7 +29,7 @@ struct MyBudgetAppApp: App {
                             Label("Transactions", systemImage: "dollarsign.arrow.circlepath")
                         }
                         .tag("1")
-                    Text("Budgets")
+                    BudgetMainTabView(viewModel: budgetsViewModel)
                         .tabItem {
                             Label("Budgets", systemImage: "creditcard.fill")
                         }

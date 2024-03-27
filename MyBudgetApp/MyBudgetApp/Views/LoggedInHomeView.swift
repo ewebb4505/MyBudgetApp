@@ -18,20 +18,21 @@ struct LoggedInHomeView: View {
             if homeViewModel.isLoadingResults {
                 ProgressView()
             } else {
-                VStack(spacing: 16) {
-                    currentBudgets
-                    
-                    lastTenTransactionsTable
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .padding(.horizontal)
-                    
-                    allTags
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .padding(.horizontal)
-                    
-                    Spacer()
+                ScrollView {
+                    VStack(spacing: 16) {
+                        currentBudgets
+                        
+                        lastTenTransactionsTable
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal)
+                        
+                        allTags
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal)
+                        
+                        Spacer()
+                    }
                 }
-                
                 //fab
             }
         }

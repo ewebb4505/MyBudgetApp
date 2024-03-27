@@ -13,7 +13,7 @@ struct TransactionDataRow: View {
     
     private var transactionAmount: Text {
         let amount = transcation.amount
-        return Text("$\(String(format: "%.2f", transcation.amount))")
+        return Text("$\(String(format: "%.2f", abs(transcation.amount)))")
             .foregroundStyle(amount > 0 ? .green : .red)
     }
     
