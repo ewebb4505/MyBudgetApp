@@ -9,6 +9,7 @@ import Foundation
 
 enum BudgetCategoryRequest: RequestProtocol {
     case getBudgetCategories(UUID)
+    case getBudgetCategoryTransactions(UUID)
     case createBudgetCategory(UUID, String, Double)
     case deleteBudgetCategory(UUID)
     
@@ -16,6 +17,8 @@ enum BudgetCategoryRequest: RequestProtocol {
         switch self {
         case .getBudgetCategories(_):
             "/categories"
+        case.getBudgetCategoryTransactions(_):
+            "/categories/transactions"
         case .createBudgetCategory(_, _, _):
             "/categories"
         case .deleteBudgetCategory(_):
@@ -27,6 +30,8 @@ enum BudgetCategoryRequest: RequestProtocol {
         switch self {
         case .getBudgetCategories(let id):
             ["id":id.uuidString]
+        case.getBudgetCategoryTransactions(let id):
+            ["id":id.uuidString]
         case .createBudgetCategory(_, _, _):
             [:]
         case .deleteBudgetCategory(let id):
@@ -36,7 +41,7 @@ enum BudgetCategoryRequest: RequestProtocol {
     
     var params: [String : Any] {
         switch self {
-        case .getBudgetCategories, .deleteBudgetCategory(_):
+        case .getBudgetCategories, .deleteBudgetCategory(_), .getBudgetCategoryTransactions(_):
             [:]
         case .createBudgetCategory(let id, let title, let maxAmount):
             ["title": title,
@@ -47,7 +52,7 @@ enum BudgetCategoryRequest: RequestProtocol {
     
     var requestType: RequestType {
         switch self {
-        case .getBudgetCategories:
+        case .getBudgetCategories, .getBudgetCategoryTransactions(_):
             return .GET
         case .createBudgetCategory(_, _, _):
             return .POST
@@ -57,6 +62,6 @@ enum BudgetCategoryRequest: RequestProtocol {
     }
     
     var addAuthorizationToken: Bool {
-        false
+        true
     }
 }

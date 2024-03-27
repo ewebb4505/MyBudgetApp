@@ -22,6 +22,8 @@ struct BudgetDetailView: View {
                 
                 pieChartForBudget
                 
+                Divider()
+            
                 categoriesView
                 
                 Spacer()
@@ -33,8 +35,16 @@ struct BudgetDetailView: View {
             .sheet(isPresented: $viewModel.showCreateBudgetCategoryView) {
                 CreateBudgetCategoryView(categoryTitle: $viewModel.createCategoryTitle,
                                          categoryStartingAmount: $viewModel.createCategoryStartingAmount) {
-                    print()
+                    await viewModel.createBudgetCategory()
                 }
+            }
+            .sheet(isPresented: $viewModel.showAddTransactionToBudgetCategoryView, onDismiss: {
+                Task {
+                    await viewModel.assignTransactionToBudgetCategory()
+                }
+            }) {
+                AddTransactionToBudgetCategoryView()
+                    .environment(viewModel)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -49,7 +59,7 @@ struct BudgetDetailView: View {
                     Group {
                         Text(viewModel.budget.startDate.formatted(date: .abbreviated, time: .omitted))
                         Text("→")
-                        Text(viewModel.budget.startDate.formatted(date: .abbreviated, time: .omitted))
+                        Text(viewModel.budget.endDate.formatted(date: .abbreviated, time: .omitted))
                     }
                     .font(.body.weight(.light))
                 }
@@ -98,8 +108,36 @@ struct BudgetDetailView: View {
         }
     }
     
+    @ViewBuilder
     private var categoriesView: some View {
-        EmptyView()
+        if let categories = viewModel.budget.categories, !categories.isEmpty {
+            VStack(alignment: .leading) {
+                Text("Budget Categories")
+                    .bold()
+                ForEach(categories) { category in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(category.title)
+                            Text("Limit: \(category.maxAmount)")
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            viewModel.budgetCategorySelected = category
+                            viewModel.showAddTransactionToBudgetCategoryView = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "plus.circle.fill")
+                                Text("Transaction")
+                            }
+                        }
+
+                    }
+                    .padding()
+                }
+            }
+        }
     }
     
     @ViewBuilder

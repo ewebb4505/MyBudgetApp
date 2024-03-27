@@ -12,8 +12,11 @@ class BudgetDetailViewModel {
     var budget: Budget
     var unassignedTransactions: [Transaction] = []
     var totalSpentDuringBudget: Double = 0
+    var selectedTransactionsToAddToCategory: [Transaction] = []
+    var budgetCategorySelected: BudgetCategory? = nil
     
     var showCreateBudgetCategoryView: Bool = false
+    var showAddTransactionToBudgetCategoryView: Bool = false
     
     var createCategoryTitle: String = ""
     var createCategoryStartingAmount: String = ""
@@ -28,10 +31,58 @@ class BudgetDetailViewModel {
     }
     
     func createBudgetCategory() async {
+        guard !createCategoryTitle.isEmpty else {
+            return
+        }
         
+        // TODO: add amount verification here
+        guard !createCategoryStartingAmount.isEmpty, let startingAmount = Double(createCategoryStartingAmount) else {
+            return
+        }
+        
+        guard let result = await budgetCategoryNetworkService.createBudgetCategory(for: budget,
+                                                                                   title: createCategoryTitle,
+                                                                                   maxAmount: startingAmount) else {
+            return
+        }
+        
+        if budget.categories == nil {
+            budget.categories = [result]
+        } else {
+            budget.categories?.append(result)
+        }
     }
+    
     func deleteBudget() async {}
-    func fetchUnassignedTransactionsInBudgetDateRange() async {}
-    func assignTransactionToBudgetCategory() async {}
+    
+    func fetchUnassignedTransactionsInBudgetDateRange() async {
+        let results = await transactionService.getTransactions(fromDate: budget.startDate, toDate: budget.endDate, n: nil)
+        var validTransactions: [Transaction] = []
+        for transaction in results {
+            guard let categories = budget.categories else {
+                break
+            }
+            
+            for category in categories {
+                let categoryTransactions = await budgetCategoryNetworkService.getBudgetCategoryTransactions(id: category.id)
+                if !categoryTransactions.contains(where: { $0.id == transaction.id }) {
+                    validTransactions.append(transaction)
+                }
+            }
+        }
+        unassignedTransactions = validTransactions
+    }
+    
+    func assignTransactionToBudgetCategory() async {
+        guard let budgetCategorySelected else {
+            return
+        }
+        for transaction in selectedTransactionsToAddToCategory {
+            let result = await transactionService.addTransactionToCategory(transaction: transaction, category: budgetCategorySelected)
+        }
+        unassignedTransactions = []
+        selectedTransactionsToAddToCategory = []
+    }
+    
     func getTotalSpentDuringBudget() {}
 }

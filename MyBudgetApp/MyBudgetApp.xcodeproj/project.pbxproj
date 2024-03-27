@@ -89,6 +89,7 @@
 		01FEB3C72BB3B606000F6BE6 /* BudgetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3C62BB3B606000F6BE6 /* BudgetDetailView.swift */; };
 		01FEB3C92BB3B639000F6BE6 /* BudgetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3C82BB3B639000F6BE6 /* BudgetDetailViewModel.swift */; };
 		01FEB3CB2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */; };
+		01FEB3CD2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		01FEB3C62BB3B606000F6BE6 /* BudgetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailView.swift; sourceTree = "<group>"; };
 		01FEB3C82BB3B639000F6BE6 /* BudgetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewModel.swift; sourceTree = "<group>"; };
 		01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCategoryView.swift; sourceTree = "<group>"; };
+		01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionToBudgetCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -635,6 +637,7 @@
 				01FEB3C42BB1C8E1000F6BE6 /* CreateBudgetView.swift */,
 				01FEB3C62BB3B606000F6BE6 /* BudgetDetailView.swift */,
 				01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */,
+				01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -803,6 +806,7 @@
 				018B3E652B015F9E000C2054 /* RequestManager.swift in Sources */,
 				01361B802BA2995700773F6C /* AddTagView.swift in Sources */,
 				0145E2A32B78090300201C06 /* TransactionsViewModel.swift in Sources */,
+				01FEB3CD2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift in Sources */,
 				0145E28E2B75AC2500201C06 /* TokenKeychainManagable.swift in Sources */,
 				0145E2862B6FFF5E00201C06 /* KeychainHelper.swift in Sources */,
 				0158818A2B046B6E00EB3795 /* DollarAmountValidator.swift in Sources */,

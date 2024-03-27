@@ -15,6 +15,7 @@ struct BudgetCategoryController: RouteCollection {
         let routes = routes.grouped("categories")
         let tokenProtected = routes.grouped(Token.authenticator())
         tokenProtected.get(use: getAllCategoriesForABudget)
+        tokenProtected.get("transactions", use: getAllTransactionsForBudetCategory)
         tokenProtected.post(use: createBudgetCategory)
         tokenProtected.delete(use: deleteBudgetCategory)
     }
@@ -26,11 +27,35 @@ struct BudgetCategoryController: RouteCollection {
             throw Abort(.badRequest)
         }
         
-        guard let budget = try await Budget.query(on: req.db).with(\.$categories).filter(\.$id == budgetID).first() else {
+        guard let budget = try await Budget.query(on: req.db)
+            .with(\.$categories)
+            .filter(\.$id == budgetID)
+            .first() else {
             throw Abort(.notFound)
         }
         
         return budget.categories
+    }
+    
+    func getAllTransactionsForBudetCategory(req: Request) async throws -> [Transaction] {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
+        let budgetCategoryID = UUID(uuidString: (req.query["id"] ?? "").replacingOccurrences(of: "\"", with: ""))
+        if let budgetCategoryID {
+            guard let budgetCategory = try await BudgetCategory.query(on: req.db)
+                .filter(\.$user.$id == userID)
+                .filter(\.$id == budgetCategoryID)
+                .with(\.$transactions)
+                .first() else {
+                throw Abort(.badRequest, reason: "could not find budget category")
+            }
+            
+            return budgetCategory.transactions
+        } else {
+            throw Abort(.badRequest, reason: "could not create budget category id")
+        }
     }
     
     // works
