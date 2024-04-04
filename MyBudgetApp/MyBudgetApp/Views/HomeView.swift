@@ -159,5 +159,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(homeViewModel: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [])], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]), showLoginScreenCover: false)
+    HomeView(homeViewModel: HomeViewModel(currentBudgets: [Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 3600000, since: .now), startingAmount: 1234, categories: [], totalSpent: 0)], transactions: [Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now), Transaction(id: .init(), title: "First Transactions", amount: 32.00, date: .now)], allTags: [Tag(id: .init(), title: "grocery"), Tag(id: .init(), title: "fast food"), Tag(id: .init(), title: "health care")]), showLoginScreenCover: false)
 }

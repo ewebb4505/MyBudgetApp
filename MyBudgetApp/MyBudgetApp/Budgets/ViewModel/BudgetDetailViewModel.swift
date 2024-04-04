@@ -11,7 +11,6 @@ import Foundation
 class BudgetDetailViewModel {
     var budget: Budget
     var unassignedTransactions: [Transaction] = []
-    var totalSpentDuringBudget: Double = 0
     var selectedTransactionsToAddToCategory: [Transaction] = []
     var budgetCategorySelected: BudgetCategory? = nil
     
@@ -63,11 +62,16 @@ class BudgetDetailViewModel {
                 break
             }
             
+            var transactionContainedByOtherCategory = false
             for category in categories {
                 let categoryTransactions = await budgetCategoryNetworkService.getBudgetCategoryTransactions(id: category.id)
-                if !categoryTransactions.contains(where: { $0.id == transaction.id }) {
-                    validTransactions.append(transaction)
+                if categoryTransactions.contains(where: { $0.id == transaction.id }) {
+                    transactionContainedByOtherCategory = true
                 }
+            }
+            
+            if !transactionContainedByOtherCategory {
+                validTransactions.append(transaction)
             }
         }
         unassignedTransactions = validTransactions
@@ -78,11 +82,15 @@ class BudgetDetailViewModel {
             return
         }
         for transaction in selectedTransactionsToAddToCategory {
-            let result = await transactionService.addTransactionToCategory(transaction: transaction, category: budgetCategorySelected)
+            let _ = await transactionService.addTransactionToCategory(transaction: transaction, category: budgetCategorySelected)
         }
         unassignedTransactions = []
         selectedTransactionsToAddToCategory = []
     }
     
     func getTotalSpentDuringBudget() {}
+    
+    func getBudgetCategoryTrackedTransactions(categoryID: BudgetCategory.ID) async -> [Transaction] {
+        await budgetCategoryNetworkService.getBudgetCategoryTransactions(id: categoryID)
+    }
 }

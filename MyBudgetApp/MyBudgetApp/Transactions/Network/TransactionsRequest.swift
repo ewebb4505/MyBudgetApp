@@ -16,16 +16,12 @@ enum TransactionsRequest: RequestProtocol {
     
     var path: String {
         switch self {
-        case .getTransactions(_, _, _, _):
-            "/transactions"
-        case .createTransactions(_, _, _, _):
-            "/transactions"
-        case .deleteTransaction(_):
+        case .getTransactions(_, _, _, _), .createTransactions(_, _, _, _), .deleteTransaction(_):
             "/transactions"
         case .addTagsToTransaction(_, _):
             "/transaction/tags"
         case .addTransactionToBudgetCategory(_, _):
-            "/transactions/budget/category"
+            "/categories/x"
         }
     }
     

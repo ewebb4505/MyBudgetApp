@@ -70,5 +70,5 @@ struct CurrentBudgetCardView: View {
 }
 
 #Preview {
-    CurrentBudgetCardView(budget: Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 2600000, since: .now), startingAmount: 4000.0, categories: []), amountSpent: 1234)
+    CurrentBudgetCardView(budget: Budget(id: .init(), title: "Monthly Budget", startDate: .now, endDate: Date(timeInterval: 2600000, since: .now), startingAmount: 4000.0, categories: [], totalSpent: 0), amountSpent: 1234)
 }

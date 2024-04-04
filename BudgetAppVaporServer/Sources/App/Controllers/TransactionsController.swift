@@ -17,7 +17,6 @@ struct TransactionsController: RouteCollection {
         tokenProtected.get(use: getTransactions)
         tokenProtected.post(use: createTransaction)
         tokenProtected.delete(use: deleteTransaction)
-        tokenProtected.post("transactions", "budget", "category", use: addTransactionToCategroy)
     }
     
     // TESTING (Nov 13)
@@ -169,29 +168,7 @@ struct TransactionsController: RouteCollection {
         return .ok
     }
     
-    // works but it would be nice to have the category object returned as well.
-    func addTransactionToCategroy(req: Request) async throws -> Transaction {
-        let addTransactionToBudgetCategoryRequest = try req.content.decode(AddTransactionToBudgetCategory.self)
-        let budgetCategoryID = UUID(uuidString: (addTransactionToBudgetCategoryRequest.budgetCategoryID).replacingOccurrences(of: "\"", with: ""))
-        let transactionID = UUID(uuidString: (addTransactionToBudgetCategoryRequest.transactionID).replacingOccurrences(of: "\"", with: ""))
-        
-        let budgetCategory = try await BudgetCategory.find(budgetCategoryID, on: req.db)
-        let transaction = try await Transaction.find(transactionID, on: req.db)
-        
-        guard let transaction else {
-            throw Abort(.badRequest, reason: "could not find transaction")
-        }
-        
-        guard let budgetCategory else {
-            throw Abort(.badRequest, reason: "could not find category")
-        }
-        
-        transaction.$category.id = budgetCategory.id
-        
-        try await transaction.save(on: req.db)
-        
-        return transaction
-    }
+    
 }
 
 struct AddTransactionToBudgetCategory: Content {

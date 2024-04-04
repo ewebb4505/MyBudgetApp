@@ -46,4 +46,8 @@ extension Double {
         Text("$\(String(format: "%.2f", abs(self)))")
             .foregroundStyle(self > 0 ? .green : .red)
     }
+    
+    func displayUSD() -> Text {
+        Text("$\(String(format: "%.2f", abs(self)))")
+    }
 }

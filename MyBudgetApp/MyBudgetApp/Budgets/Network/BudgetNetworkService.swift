@@ -15,9 +15,24 @@ struct BudgetNetworkService: BudgetNetworkServiceProtocol {
         do {
           let budgets: [Budget] = try await requestManager.perform(requestData)
           return budgets
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+            return []
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
         } catch {
-          print(error.localizedDescription)
-          return []
+            print("error: ", error)
+            return []
         }
     }
     

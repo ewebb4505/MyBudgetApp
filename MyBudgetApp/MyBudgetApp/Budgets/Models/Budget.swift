@@ -14,4 +14,6 @@ struct Budget: Codable, Hashable, Identifiable {
     var endDate: Date
     var startingAmount: Double
     var categories: [BudgetCategory]?
+    var totalSpent: Double
+    var unassignedTransactions: [Transaction]?
 }

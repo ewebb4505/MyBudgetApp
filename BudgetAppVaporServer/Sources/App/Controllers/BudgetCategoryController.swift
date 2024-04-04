@@ -18,6 +18,11 @@ struct BudgetCategoryController: RouteCollection {
         tokenProtected.get("transactions", use: getAllTransactionsForBudetCategory)
         tokenProtected.post(use: createBudgetCategory)
         tokenProtected.delete(use: deleteBudgetCategory)
+        
+        // fix this crap
+        let anotherRoute = routes.grouped("x")
+        let tokenProtected2 = anotherRoute.grouped(Token.authenticator())
+        tokenProtected2.post(use: addTransactionToCategroy)
     }
     
     // works but sends back budget id
@@ -93,7 +98,35 @@ struct BudgetCategoryController: RouteCollection {
         return .ok
     }
     
-    
+    // works but it would be nice to have the category object returned as well.
+    func addTransactionToCategroy(req: Request) async throws -> Transaction {
+        guard let user = try? req.auth.require(User.self), let userID = user.id else {
+            throw Abort(.badRequest, reason: "could not find user id.")
+        }
+        
+        let addTransactionToBudgetCategoryRequest = try req.content.decode(AddTransactionToBudgetCategory.self)
+        
+        let budgetCategoryID = UUID(uuidString: (addTransactionToBudgetCategoryRequest.budgetCategoryID).replacingOccurrences(of: "\"", with: ""))
+        
+        let transactionID = UUID(uuidString: (addTransactionToBudgetCategoryRequest.transactionID).replacingOccurrences(of: "\"", with: ""))
+        
+        let budgetCategory = try await BudgetCategory.find(budgetCategoryID, on: req.db)
+        let transaction = try await Transaction.find(transactionID, on: req.db)
+        
+        guard let transaction else {
+            throw Abort(.badRequest, reason: "could not find transaction")
+        }
+        
+        guard let budgetCategory else {
+            throw Abort(.badRequest, reason: "could not find category")
+        }
+        
+        transaction.$category.id = budgetCategory.id
+        
+        try await transaction.save(on: req.db)
+        
+        return transaction
+    }
 }
 
 struct CreateBudgetCategoryRequest: Content {

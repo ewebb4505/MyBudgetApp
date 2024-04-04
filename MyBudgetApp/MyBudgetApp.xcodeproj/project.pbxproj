@@ -90,6 +90,7 @@
 		01FEB3C92BB3B639000F6BE6 /* BudgetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3C82BB3B639000F6BE6 /* BudgetDetailViewModel.swift */; };
 		01FEB3CB2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */; };
 		01FEB3CD2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */; };
+		01FEB3CF2BBB3BF7000F6BE6 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +197,7 @@
 		01FEB3C82BB3B639000F6BE6 /* BudgetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewModel.swift; sourceTree = "<group>"; };
 		01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCategoryView.swift; sourceTree = "<group>"; };
 		01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionToBudgetCategoryView.swift; sourceTree = "<group>"; };
+		01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -638,6 +640,7 @@
 				01FEB3C62BB3B606000F6BE6 /* BudgetDetailView.swift */,
 				01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */,
 				01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */,
+				01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				01361B772B8D246800773F6C /* AddTransactionView.swift in Sources */,
 				01FEB3C52BB1C8E1000F6BE6 /* CreateBudgetView.swift in Sources */,
 				018B3E262B015D5C000C2054 /* MyBudgetAppApp.swift in Sources */,
+				01FEB3CF2BBB3BF7000F6BE6 /* CategoryDetailView.swift in Sources */,
 				0145E2902B75B01600201C06 /* AccessTokenManagerProtocol.swift in Sources */,
 				018B3E9D2B01BEF3000C2054 /* CurrentBudgetCardView.swift in Sources */,
 				018B3E692B016001000C2054 /* AuthTokenRequest.swift in Sources */,

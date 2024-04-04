@@ -16,38 +16,55 @@ struct BudgetDetailView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack {
-                headerView
+        ZStack(alignment: .bottom) {
+            List {
+                Section {
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 2) {
+                            Group {
+                                Text(viewModel.budget.startDate.formatted(date: .abbreviated, time: .omitted))
+                                Text("→")
+                                Text(viewModel.budget.endDate.formatted(date: .abbreviated, time: .omitted))
+                            }
+                            .font(.body.weight(.light))
+                        }
+                        
+                        viewModel.budget.totalSpent.displayColoredUSD()
+                    }
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                }
+                .listSectionSeparatorTint(.clear)
+                .background(.clear)
                 
-                pieChartForBudget
+                Section {
+                    pieChartForBudget
+                } header: {
+                    Text("Budget Breakdown")
+                }
                 
-                Divider()
+                Section {
+                    categoriesView
+                } header: {
+                    Text("Categories")
+                }
+            }
+            .listSectionSpacing(.compact)
             
-                categoriesView
-                
-                Spacer()
-                
-                bottomButtonsView
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 4)
-            .sheet(isPresented: $viewModel.showCreateBudgetCategoryView) {
-                CreateBudgetCategoryView(categoryTitle: $viewModel.createCategoryTitle,
-                                         categoryStartingAmount: $viewModel.createCategoryStartingAmount) {
-                    await viewModel.createBudgetCategory()
-                }
-            }
-            .sheet(isPresented: $viewModel.showAddTransactionToBudgetCategoryView, onDismiss: {
-                Task {
-                    await viewModel.assignTransactionToBudgetCategory()
-                }
-            }) {
-                AddTransactionToBudgetCategoryView()
-                    .environment(viewModel)
+            bottomButtonsView
+                .background(.white)
+        }
+        .sheet(isPresented: $viewModel.showCreateBudgetCategoryView) {
+            CreateBudgetCategoryView(categoryTitle: $viewModel.createCategoryTitle,
+                                     categoryStartingAmount: $viewModel.createCategoryStartingAmount) {
+                await viewModel.createBudgetCategory()
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(viewModel.budget.title)
+        .navigationDestination(for: BudgetCategory.self) { budgetCategory in
+            CategoryDetailView(category: budgetCategory)
+                .environment(viewModel)
+        }
     }
     
     private var headerView: some View {
@@ -67,7 +84,7 @@ struct BudgetDetailView: View {
             
             Spacer()
             
-            viewModel.totalSpentDuringBudget.displayColoredUSD()
+            
         }
     }
     
@@ -105,36 +122,26 @@ struct BudgetDetailView: View {
                 .controlSize(.large)
                 .buttonStyle(.borderedProminent)
             }
+            .padding(.horizontal)
+            .padding(.vertical, 4)
         }
     }
     
     @ViewBuilder
     private var categoriesView: some View {
         if let categories = viewModel.budget.categories, !categories.isEmpty {
-            VStack(alignment: .leading) {
-                Text("Budget Categories")
-                    .bold()
-                ForEach(categories) { category in
+            ForEach(categories) { category in
+                NavigationLink(value: category) {
                     HStack {
                         VStack(alignment: .leading) {
                             Text(category.title)
-                            Text("Limit: \(category.maxAmount)")
+                            Text("Limit: ") + category.maxAmount.displayUSD()
                         }
                         
-                        Spacer()
+                        Spacer()             
                         
-                        Button {
-                            viewModel.budgetCategorySelected = category
-                            viewModel.showAddTransactionToBudgetCategoryView = true
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                Text("Transaction")
-                            }
-                        }
-
                     }
-                    .padding()
+                    //.padding()
                 }
             }
         }
@@ -157,6 +164,7 @@ struct BudgetDetailView: View {
                     )
                 )
             }
+            .frame(height: 200)
         }
     }
 }
