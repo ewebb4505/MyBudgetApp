@@ -9,6 +9,7 @@ import Foundation
 
 enum BudgetRequest: RequestProtocol {
     case getBudgets(Bool)
+    case getBudget(UUID)
     case createBudget(String, Date, Date, Double)
     case deleteBudget(UUID)
     
@@ -20,6 +21,8 @@ enum BudgetRequest: RequestProtocol {
             "/budgets"
         case .deleteBudget(_):
             "/budgets"
+        case .getBudget(_):
+            "/budget"
         }
     }
     
@@ -29,14 +32,14 @@ enum BudgetRequest: RequestProtocol {
             ["isActive": isActive ? "true" : "false"]
         case .createBudget(_, _, _, _):
             [:]
-        case .deleteBudget(let id):
+        case .deleteBudget(let id), .getBudget(let id):
             ["id": id.uuidString]
         }
     }
     
     var params: [String : Any] {
         switch self {
-        case .getBudgets(_), .deleteBudget(_):
+        case .getBudgets(_), .deleteBudget(_), .getBudget(_):
             [:]
         case .createBudget(let title, let startDate, let endDate, let amount):
             ["title": title,
@@ -48,7 +51,7 @@ enum BudgetRequest: RequestProtocol {
     
     var requestType: RequestType {
         switch self {
-        case .getBudgets(_):
+        case .getBudgets(_), .getBudget(_):
             return .GET
         case .createBudget(_, _, _, _):
             return .POST

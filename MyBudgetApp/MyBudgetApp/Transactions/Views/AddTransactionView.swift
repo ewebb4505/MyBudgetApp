@@ -11,6 +11,8 @@ struct AddTransactionView: View {
     @Environment(\.dismiss) var dismiss
     
     var tags: [Tag]
+    var budgetCategories: [BudgetCategory]?
+    @Binding var selectedCategory: BudgetCategory?
     
     @Binding var transactionType: Int
     @Binding var transactionName: String
@@ -49,6 +51,26 @@ struct AddTransactionView: View {
                                 Text($0.title).tag($0 as Tag?)
                             }
                         }.pickerStyle(.navigationLink)
+                    }
+                }
+                
+                if let budgetCategories {
+                    Section("Add to Category For Current Budget") {
+                        List {
+                            ForEach(budgetCategories) { category in
+                                HStack {
+                                    Text(category.title)
+                                    
+                                    Spacer()
+                                    
+                                    CheckCircleView(isSelected: selectedCategory == category)
+                                }
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    selectedCategory = category
+                                }
+                            }
+                        }
                     }
                 }
                 

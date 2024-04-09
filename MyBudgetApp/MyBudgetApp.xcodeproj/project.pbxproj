@@ -91,6 +91,7 @@
 		01FEB3CB2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */; };
 		01FEB3CD2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */; };
 		01FEB3CF2BBB3BF7000F6BE6 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */; };
+		01FEB3D12BC4D80A000F6BE6 /* CheckCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +199,7 @@
 		01FEB3CA2BB3C108000F6BE6 /* CreateBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCategoryView.swift; sourceTree = "<group>"; };
 		01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionToBudgetCategoryView.swift; sourceTree = "<group>"; };
 		01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
+		01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,6 +498,7 @@
 				0158817B2B04548200EB3795 /* Actions */,
 				015881782B04542B00EB3795 /* FullScreenCover */,
 				0145E2A42B780D3B00201C06 /* PaginatingListView.swift */,
+				01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				018B3E9A2B01B9C7000C2054 /* TagBadge.swift in Sources */,
 				0145E2A52B780D3B00201C06 /* PaginatingListView.swift in Sources */,
 				0145E2792B6E0B9600201C06 /* AuthNetworkServiceProtocol.swift in Sources */,
+				01FEB3D12BC4D80A000F6BE6 /* CheckCircleView.swift in Sources */,
 				018B3E942B01B451000C2054 /* HomeViewModel.swift in Sources */,
 				0145E28C2B75AC0700201C06 /* UserKeychainManagable.swift in Sources */,
 				0145E2842B6FF34A00201C06 /* SignUpResponse.swift in Sources */,

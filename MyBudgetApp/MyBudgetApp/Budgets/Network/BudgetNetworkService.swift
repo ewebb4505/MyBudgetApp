@@ -36,6 +36,32 @@ struct BudgetNetworkService: BudgetNetworkServiceProtocol {
         }
     }
     
+    func getBudget(id: UUID) async -> Budget? {
+        let requestData = BudgetRequest.getBudget(id)
+        do {
+          let budget: Budget = try await requestManager.perform(requestData)
+          return budget
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+            return nil
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return nil
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return nil
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return nil
+        } catch {
+            print("error: ", error)
+            return nil
+        }
+    }
+    
     func createBudget(title: String, startDate: Date, endDate: Date, amount: Double) async -> Budget? {
         let requestData = BudgetRequest.createBudget(title, startDate, endDate, amount)
         do {

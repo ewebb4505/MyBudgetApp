@@ -60,10 +60,31 @@ struct BudgetDetailView: View {
                 await viewModel.createBudgetCategory()
             }
         }
+        .sheet(isPresented: $viewModel.showAddTransactionToBudgetCategoryView, content: {
+            AddTransactionView(tags: [],
+                               budgetCategories: viewModel.budget.categories,
+                               selectedCategory: $viewModel.selectedBudgetCategoryForTransaction, 
+                               transactionType: $viewModel.createTransactionType,
+                               transactionName: $viewModel.createTransactionName,
+                               transactionAmount: $viewModel.createTransactionAmount,
+                               transactionDate: $viewModel.createTransactionDate,
+                               selectedTag: .constant(nil),
+                               shouldDismissNewTransactionView: $viewModel.shouldDismissCreateTransaction,
+                               shouldShowErrorCreatingNewTransaction: $viewModel.shouldShowErrorCreatingNewTransaction) {
+                await viewModel.submitNewTransaction()
+                await viewModel.addNewTransactionToSelectedBudgetCategory()
+                await viewModel.reloadBudgetData()
+            }
+        })
         .navigationTitle(viewModel.budget.title)
         .navigationDestination(for: BudgetCategory.self) { budgetCategory in
             CategoryDetailView(category: budgetCategory)
                 .environment(viewModel)
+        }
+        .onChange(of: viewModel.reloadBudgetData) { oldValue, newValue in
+            if newValue {
+                
+            }
         }
     }
     
@@ -108,7 +129,7 @@ struct BudgetDetailView: View {
                 .buttonStyle(.bordered)
                 
                 Button {
-                    
+                    viewModel.showAddTransactionToBudgetCategoryView = true
                 } label: {
                     HStack {
                         Spacer()
@@ -135,13 +156,18 @@ struct BudgetDetailView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text(category.title)
-                            Text("Limit: ") + category.maxAmount.displayUSD()
+                            Group {
+                                Text("Spent ")
+                                + category.totalAmountSpent.displayUSD()
+                                + Text(" out of ")
+                                + category.maxAmount.displayUSD()
+                            }
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                         }
                         
-                        Spacer()             
-                        
+                        Spacer()
                     }
-                    //.padding()
                 }
             }
         }
@@ -154,7 +180,7 @@ struct BudgetDetailView: View {
                 SectorMark(
                     angle: .value(
                         Text(verbatim: category.title),
-                        10
+                        category.totalAmountSpent
                     )
                 )
                 .foregroundStyle(

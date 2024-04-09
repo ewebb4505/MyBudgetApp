@@ -35,13 +35,13 @@ struct BudgetController: RouteCollection {
         var budgets: [Budget] = []
         if let isActive {
             budgets = try await Budget.query(on: req.db)
-                .with(\.$categories)
+                .with(\.$categories, { $0.with(\.$transactions) })
                 .all()
         } else {
             budgets = try await Budget.query(on: req.db)
                 .filter(\.$endDate >= Date.now)
                 .sort(\.$endDate)
-                .with(\.$categories)
+                .with(\.$categories, { $0.with(\.$transactions) })
                 .all()
         }
         
@@ -58,8 +58,8 @@ struct BudgetController: RouteCollection {
             var budgetResponseObj: GetBudgetResponseObject
             
             if let transactions {
-                let totalSpent: Double = transactions.reduce(into: 0.0) { partialResult, transaction in
-                    partialResult += transaction.amount
+                let totalSpent: Double = transactions.reduce(into: budget.startingAmount) {
+                    $0 += $1.amount
                 }
                 
                 let unassignedTransactions = transactions.filter { $0.category == nil }

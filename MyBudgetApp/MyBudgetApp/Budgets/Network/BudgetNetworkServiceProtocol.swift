@@ -9,6 +9,7 @@ import Foundation
 
 protocol BudgetNetworkServiceProtocol {
     func getBudgets(isActive: Bool) async -> [Budget]
+    func getBudget(id: UUID) async -> Budget?
     func createBudget(title: String, startDate: Date, endDate: Date, amount: Double) async -> Budget?
     func deleteBudget(id: UUID) async -> Bool
 }

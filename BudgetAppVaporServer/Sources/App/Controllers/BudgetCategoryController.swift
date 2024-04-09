@@ -33,8 +33,8 @@ struct BudgetCategoryController: RouteCollection {
         }
         
         guard let budget = try await Budget.query(on: req.db)
-            .with(\.$categories)
             .filter(\.$id == budgetID)
+            .with(\.$categories, { $0.with(\.$transactions) })
             .first() else {
             throw Abort(.notFound)
         }
@@ -134,5 +134,3 @@ struct CreateBudgetCategoryRequest: Content {
     var title: String
     var maxAmount: Double
 }
-
-

@@ -30,6 +30,7 @@ struct TransactionMainTabView: View {
             }
             .sheet(isPresented: $showAddTransactionSheet) {
                 AddTransactionView(tags: viewModel.tags,
+                                   selectedCategory: .constant(nil), 
                                    transactionType: $viewModel.transactionType,
                                    transactionName: $viewModel.transactionName,
                                    transactionAmount: $viewModel.transactionAmount,

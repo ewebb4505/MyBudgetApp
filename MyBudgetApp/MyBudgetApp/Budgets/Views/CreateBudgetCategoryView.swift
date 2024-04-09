@@ -14,25 +14,28 @@ struct CreateBudgetCategoryView: View {
     var action: () async -> Void
     
     var body: some View {
-        Form {
-            TextField("Title", text: $categoryTitle)
-            
-            TextField("Spending Limit", text: $categoryStartingAmount)
-                .focused($textfieldFocused)
-                .keyboardType(.numbersAndPunctuation)
-                .onLongPressGesture(minimumDuration: 0.0) {
-                    textfieldFocused = true
+        NavigationStack {
+            Form {
+                TextField("Title", text: $categoryTitle)
+                
+                TextField("Spending Limit", text: $categoryStartingAmount)
+                    .focused($textfieldFocused)
+                    .keyboardType(.numbersAndPunctuation)
+                    .onLongPressGesture(minimumDuration: 0.0) {
+                        textfieldFocused = true
+                    }
+                    .autocorrectionDisabled()
+                
+                Section {
+                    Button {
+                        Task { await action() }
+                    } label: {
+                        Text("Create Category")
+                    }
+                    .buttonStyle(.borderless)
                 }
-                .autocorrectionDisabled()
-
-            Section {
-                Button {
-                    Task { await action() }
-                } label: {
-                    Text("Create Category")
-                }
-                .buttonStyle(.borderless)
             }
+            .navigationTitle("Create Category")
         }
     }
 }

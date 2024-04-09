@@ -50,7 +50,9 @@ class BudgetsMainTabViewModel {
             errorCreatingBudget = true
             return false
         }
+        
         currentBudgets.append(result)
+        showCreateBudgetSheet = false
         return true
     }
     

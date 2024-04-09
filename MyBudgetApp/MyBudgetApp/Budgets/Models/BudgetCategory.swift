@@ -12,6 +12,15 @@ struct BudgetCategory: Codable, Identifiable, Hashable {
     var title: String
     var maxAmount: Double
     var budget: BudgetID
+    var transactions: [Transaction]?
+    
+    var totalAmountSpent: Double {
+        guard let transactions else {
+            return 0
+        }
+        let amount: Double = transactions.reduce(0, { $0 + $1.amount })
+        return amount
+    }
 }
 
 struct BudgetID: Codable, Hashable, Identifiable {
