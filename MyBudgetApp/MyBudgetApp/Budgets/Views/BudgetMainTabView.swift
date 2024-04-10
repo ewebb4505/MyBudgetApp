@@ -27,25 +27,66 @@ struct BudgetMainTabView: View {
                     }
                 } else {
                     List {
-                        ForEach(viewModel.currentBudgets) { budget in
-                            NavigationLink(value: budget) {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(budget.title)
-                                        Text("\(budget.startDate.formatted(date: .abbreviated, time: .omitted)) -> \(budget.endDate.formatted(date: .abbreviated, time: .omitted))")
-                                    }
-                                    
-                                    Spacer()
-                                }
-                                .swipeActions(edge: .trailing) {
-                                    Button(role: .destructive) {
-                                        Task { @MainActor in
-                                            await viewModel.deleteBudget(budgetID: budget.id)
+                        Section {
+                            ForEach(viewModel.currentBudgets) { budget in
+                                NavigationLink(value: budget) {
+                                    HStack {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(budget.title)
+                                                .font(.body)
+                                            
+                                            Group {
+                                                Text(budget.startDate.formatted(date: .abbreviated, time: .omitted))
+                                                +
+                                                Text(" → ")
+                                                +
+                                                Text(budget.endDate.formatted(date: .abbreviated, time: .omitted))
+                                            }
+                                            .font(.caption.weight(.light))
                                         }
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        
+                                        Spacer()
+                                    }
+                                    .swipeActions(edge: .trailing) {
+                                        Button(role: .destructive) {
+                                            Task { @MainActor in
+                                                await viewModel.deleteBudget(budgetID: budget.id)
+                                            }
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
                                     }
                                 }
+                            }
+                        } header: {
+                            Text("Active Budgets")
+                        }
+                        
+                        if !viewModel.budgets.isEmpty {
+                            Section {
+                                ForEach(viewModel.currentBudgets) { budget in
+                                    NavigationLink(value: budget) {
+                                        HStack {
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(budget.title)
+                                                    .font(.body)
+                                                
+                                                Group {
+                                                    Text(budget.startDate.formatted(date: .abbreviated, time: .omitted))
+                                                    +
+                                                    Text(" → ")
+                                                    +
+                                                    Text(budget.endDate.formatted(date: .abbreviated, time: .omitted))
+                                                }
+                                                .font(.caption.weight(.light))
+                                            }
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                            } header: {
+                                Text("Inactive Budgets")
                             }
                         }
                     }
