@@ -92,6 +92,7 @@
 		01FEB3CD2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */; };
 		01FEB3CF2BBB3BF7000F6BE6 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */; };
 		01FEB3D12BC4D80A000F6BE6 /* CheckCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */; };
+		01FEB3D32BC72DAB000F6BE6 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D22BC72DAB000F6BE6 /* Globals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +201,7 @@
 		01FEB3CC2BB48F65000F6BE6 /* AddTransactionToBudgetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionToBudgetCategoryView.swift; sourceTree = "<group>"; };
 		01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircleView.swift; sourceTree = "<group>"; };
+		01FEB3D22BC72DAB000F6BE6 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,6 +532,7 @@
 				018B3E5E2B015EDB000C2054 /* APIConstants.swift */,
 				018B3E602B015EF0000C2054 /* NetworkError.swift */,
 				018B3E622B015F7F000C2054 /* DataParser.swift */,
+				01FEB3D22BC72DAB000F6BE6 /* Globals.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				01FEB3D12BC4D80A000F6BE6 /* CheckCircleView.swift in Sources */,
 				018B3E942B01B451000C2054 /* HomeViewModel.swift in Sources */,
 				0145E28C2B75AC0700201C06 /* UserKeychainManagable.swift in Sources */,
+				01FEB3D32BC72DAB000F6BE6 /* Globals.swift in Sources */,
 				0145E2842B6FF34A00201C06 /* SignUpResponse.swift in Sources */,
 				0145E29A2B77F36B00201C06 /* PasswordKeychainManager.swift in Sources */,
 				0145E2922B75B02F00201C06 /* AccessTokenManager.swift in Sources */,
