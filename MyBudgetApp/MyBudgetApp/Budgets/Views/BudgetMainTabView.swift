@@ -13,7 +13,7 @@ struct BudgetMainTabView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if viewModel.currentBudgets.isEmpty {
+                if viewModel.currentBudgets.isEmpty && viewModel.budgets.isEmpty {
                     VStack {
                         Spacer()
                         
@@ -27,44 +27,46 @@ struct BudgetMainTabView: View {
                     }
                 } else {
                     List {
-                        Section {
-                            ForEach(viewModel.currentBudgets) { budget in
-                                NavigationLink(value: budget) {
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(budget.title)
-                                                .font(.body)
+                        if !viewModel.currentBudgets.isEmpty {
+                            Section {
+                                ForEach(viewModel.currentBudgets) { budget in
+                                    NavigationLink(value: budget) {
+                                        HStack {
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(budget.title)
+                                                    .font(.body)
+                                                
+                                                Group {
+                                                    Text(budget.startDate.formatted(date: .abbreviated, time: .omitted))
+                                                    +
+                                                    Text(" → ")
+                                                    +
+                                                    Text(budget.endDate.formatted(date: .abbreviated, time: .omitted))
+                                                }
+                                                .font(.caption.weight(.light))
+                                            }
                                             
-                                            Group {
-                                                Text(budget.startDate.formatted(date: .abbreviated, time: .omitted))
-                                                +
-                                                Text(" → ")
-                                                +
-                                                Text(budget.endDate.formatted(date: .abbreviated, time: .omitted))
-                                            }
-                                            .font(.caption.weight(.light))
+                                            Spacer()
                                         }
-                                        
-                                        Spacer()
-                                    }
-                                    .swipeActions(edge: .trailing) {
-                                        Button(role: .destructive) {
-                                            Task { @MainActor in
-                                                await viewModel.deleteBudget(budgetID: budget.id)
+                                        .swipeActions(edge: .trailing) {
+                                            Button(role: .destructive) {
+                                                Task { @MainActor in
+                                                    await viewModel.deleteBudget(budgetID: budget.id)
+                                                }
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
                                             }
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
                                         }
                                     }
                                 }
+                            } header: {
+                                Text("Active Budgets")
                             }
-                        } header: {
-                            Text("Active Budgets")
                         }
                         
                         if !viewModel.budgets.isEmpty {
                             Section {
-                                ForEach(viewModel.currentBudgets) { budget in
+                                ForEach(viewModel.budgets) { budget in
                                     NavigationLink(value: budget) {
                                         HStack {
                                             VStack(alignment: .leading, spacing: 4) {
@@ -94,7 +96,8 @@ struct BudgetMainTabView: View {
             }
             .navigationTitle("Budgets")
             .navigationDestination(for: Budget.self, destination: { budget in
-                BudgetDetailView(budget: budget)
+                BudgetDetailView(budget: budget,
+                                 isActive: viewModel.currentBudgets.contains(where: { $0.id == budget.id }))
             })
             .task {
                 await viewModel.fetchBudgets()

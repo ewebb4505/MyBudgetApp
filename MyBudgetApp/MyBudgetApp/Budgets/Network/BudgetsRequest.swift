@@ -29,7 +29,7 @@ enum BudgetRequest: RequestProtocol {
     var urlParams: [String : String?] {
         switch self {
         case .getBudgets(let isActive):
-            ["isActive": isActive ? "true" : "false"]
+            ["active": isActive ? "true" : "false"]
         case .createBudget(_, _, _, _):
             [:]
         case .deleteBudget(let id), .getBudget(let id):

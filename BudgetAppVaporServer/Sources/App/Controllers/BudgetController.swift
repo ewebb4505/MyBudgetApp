@@ -26,19 +26,21 @@ struct BudgetController: RouteCollection {
     // Works
     func getBudgets(req: Request) async throws -> [GetBudgetResponseObject] {
         guard let user = try? req.auth.require(User.self), let userID = user.id else {
-            throw Abort(.badRequest, reason: "could not find user id.")
+            throw Abort(.unauthorized, reason: "could not find user id.")
         }
         
         let isActiveParam = req.query["active"] ?? ""
         let isActive = Bool(isActiveParam)
         
         var budgets: [Budget] = []
-        if let isActive {
+        if let isActive, !isActive {
             budgets = try await Budget.query(on: req.db)
+                .filter(\.$user.$id == userID)
                 .with(\.$categories, { $0.with(\.$transactions) })
                 .all()
         } else {
             budgets = try await Budget.query(on: req.db)
+                .filter(\.$user.$id == userID)
                 .filter(\.$endDate >= Date.now)
                 .sort(\.$endDate)
                 .with(\.$categories, { $0.with(\.$transactions) })

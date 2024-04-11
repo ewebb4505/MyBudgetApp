@@ -11,8 +11,9 @@ struct CategoryDetailView: View {
     @Environment(BudgetDetailViewModel.self) private var viewModel
     
     var category: BudgetCategory
-    @State private var showAddTransactionToBudgetCategoryView = false
+    let isActive: Bool
     
+    @State private var showAddTransactionToBudgetCategoryView = false
     @State private var categoryTransactions: [Transaction] = []
     
     var body: some View {
@@ -61,8 +62,10 @@ struct CategoryDetailView: View {
                 }
             }
             
-            bottomButtonsView
-                .background(.white)
+            if isActive {
+                bottomButtonsView
+                    .background(.white)
+            }
         }
         .task {
             categoryTransactions = await viewModel.getBudgetCategoryTrackedTransactions(categoryID: category.id)

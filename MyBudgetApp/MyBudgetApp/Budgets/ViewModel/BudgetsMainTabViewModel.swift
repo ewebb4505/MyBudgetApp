@@ -28,6 +28,7 @@ class BudgetsMainTabViewModel {
     
     func fetchBudgets() async {
         currentBudgets = await budgetNetworkService.getBudgets(isActive: true)
+        budgets = await budgetNetworkService.getBudgets(isActive: false)
     }
     
     func createBudget() async -> Bool {

@@ -10,9 +10,11 @@ import Charts
 
 struct BudgetDetailView: View {
     @Bindable var viewModel: BudgetDetailViewModel
+    let isActive: Bool
     
-    init(budget: Budget) {
+    init(budget: Budget, isActive: Bool) {
         viewModel = BudgetDetailViewModel(budget: budget)
+        self.isActive = isActive
     }
     
     var body: some View {
@@ -52,8 +54,10 @@ struct BudgetDetailView: View {
             }
             .listSectionSpacing(.compact)
             
-            bottomButtonsView
-                .background(.white)
+            if isActive {
+                bottomButtonsView
+                    .background(.white)
+            }
         }
         .sheet(isPresented: $viewModel.showCreateBudgetCategoryView) {
             CreateBudgetCategoryView(categoryTitle: $viewModel.createCategoryTitle,
@@ -79,7 +83,7 @@ struct BudgetDetailView: View {
         })
         .navigationTitle(viewModel.budget.title)
         .navigationDestination(for: BudgetCategory.self) { budgetCategory in
-            CategoryDetailView(category: budgetCategory)
+            CategoryDetailView(category: budgetCategory, isActive: isActive)
                 .environment(viewModel)
         }
         .onChange(of: viewModel.reloadBudgetData) { oldValue, newValue in
