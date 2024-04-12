@@ -40,19 +40,36 @@ struct BudgetDetailView: View {
                 .listSectionSeparatorTint(.clear)
                 .background(.clear)
                 
-                Section {
-                    pieChartForBudget
-                } header: {
-                    Text("Budget Breakdown")
+                if let categories = viewModel.budget.categories, !categories.isEmpty {
+                    Section {
+                        pieChartForBudget
+                    } header: {
+                        Text("Budget Breakdown")
+                    }
+                    
+                    Section {
+                        categoriesView
+                    } header: {
+                        Text("Categories")
+                    }
                 }
                 
-                Section {
-                    categoriesView
-                } header: {
-                    Text("Categories")
-                }
+                // trick for adding spacing at the bottom of the List
+                Color(.clear)
+                    .listRowBackground(Color.clear)
+                    .listSectionSeparatorTint(.clear)
+                    .frame(height: 50)
             }
             .listSectionSpacing(.compact)
+            .overlay {
+                if viewModel.budget.categories?.isEmpty ?? false {
+                    Text("You aren't tracking any transactions for this budget.")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+            }
             
             if isActive {
                 bottomButtonsView
@@ -109,14 +126,13 @@ struct BudgetDetailView: View {
             }
             
             Spacer()
-            
-            
         }
     }
     
     private var bottomButtonsView: some View {
-        VStack {
+        VStack(spacing: 0) {
             Divider()
+                .frame(height: 1)
             HStack {
                 Button {
                     viewModel.showCreateBudgetCategoryView = true
@@ -148,8 +164,7 @@ struct BudgetDetailView: View {
                 .controlSize(.large)
                 .buttonStyle(.borderedProminent)
             }
-            .padding(.horizontal)
-            .padding(.vertical, 4)
+            .padding()
         }
     }
     
