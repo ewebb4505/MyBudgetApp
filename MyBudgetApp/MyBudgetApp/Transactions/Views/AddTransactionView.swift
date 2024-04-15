@@ -72,6 +72,14 @@ struct AddTransactionView: View {
                             }
                         }
                     }
+                } else if let selectedCategory {
+                    Section("Category") {
+                        HStack {
+                            Text(selectedCategory.title)
+                            
+                            Spacer()
+                        }
+                    }
                 }
                 
                 Section {

@@ -16,6 +16,8 @@ class BudgetDetailViewModel {
     
     var showCreateBudgetCategoryView: Bool = false
     var showAddTransactionToBudgetCategoryView: Bool = false
+    var addCategoriesToCreateTransactionView: Bool = false
+    var categoryForNewTransaction: BudgetCategory? = nil
     
     var createCategoryTitle: String = ""
     var createCategoryStartingAmount: String = ""

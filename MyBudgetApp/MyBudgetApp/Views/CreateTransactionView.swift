@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CreateTransactionView: View {
     var tags: [Tag]
+    var showCategories: Bool = false
     @StateObject var viewModel = CreateTransactionViewModel()
     @FocusState var focus: CreateTransactionViewModel.InputState?
     @State var selection: Int = 0

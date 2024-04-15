@@ -14,7 +14,9 @@ struct CategoryDetailView: View {
     let isActive: Bool
     
     @State private var showAddTransactionToBudgetCategoryView = false
+    @State private var showCreateTransactionView = false
     @State private var categoryTransactions: [Transaction] = []
+    @State private var showNotTrackedTransactionsMessage: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -51,13 +53,15 @@ struct CategoryDetailView: View {
                 .listSectionSeparatorTint(.clear)
                 .background(.clear)
                 
-                Section {
-                    ForEach(categoryTransactions) { transaction in
-                        buildTransactionTablerow(transaction)
-                    }
-                } header: {
-                    HStack {
-                        Text("Transactions (\(categoryTransactions.count))")
+                if !showNotTrackedTransactionsMessage {
+                    Section {
+                        ForEach(categoryTransactions) { transaction in
+                            buildTransactionTablerow(transaction)
+                        }
+                    } header: {
+                        HStack {
+                            Text("Transactions (\(categoryTransactions.count))")
+                        }
                     }
                 }
             }
@@ -69,15 +73,19 @@ struct CategoryDetailView: View {
         }
         .task {
             categoryTransactions = await viewModel.getBudgetCategoryTrackedTransactions(categoryID: category.id)
+            showNotTrackedTransactionsMessage = categoryTransactions.isEmpty
         }
         .navigationTitle(category.title)
-        .sheet(isPresented: $showAddTransactionToBudgetCategoryView, onDismiss: {
-            Task {
-                await viewModel.assignTransactionToBudgetCategory()
-            }
-        }) {
+        .sheet(isPresented: $showAddTransactionToBudgetCategoryView) {
+            Task { await viewModel.assignTransactionToBudgetCategory() }
+        } content: {
             AddTransactionToBudgetCategoryView()
                 .environment(viewModel)
+        }
+        .overlay {
+            if showNotTrackedTransactionsMessage {
+                Text("You have no tracked transactions for this category.")
+            }
         }
     }
     
@@ -86,7 +94,9 @@ struct CategoryDetailView: View {
             Divider()
             VStack {
                 Button {
-                    
+                    viewModel.selectedBudgetCategoryForTransaction = category
+                    viewModel.addCategoriesToCreateTransactionView = false
+                    viewModel.showAddTransactionToBudgetCategoryView = true
                 } label: {
                     createBottomButtonLabel("Create Transaction")
                 }

@@ -83,9 +83,10 @@ struct BudgetDetailView: View {
             }
         }
         .sheet(isPresented: $viewModel.showAddTransactionToBudgetCategoryView, content: {
+            let categories = viewModel.addCategoriesToCreateTransactionView ? viewModel.budget.categories : nil
             AddTransactionView(tags: [],
-                               budgetCategories: viewModel.budget.categories,
-                               selectedCategory: $viewModel.selectedBudgetCategoryForTransaction, 
+                               budgetCategories: categories,
+                               selectedCategory: $viewModel.selectedBudgetCategoryForTransaction,
                                transactionType: $viewModel.createTransactionType,
                                transactionName: $viewModel.createTransactionName,
                                transactionAmount: $viewModel.createTransactionAmount,
@@ -150,6 +151,7 @@ struct BudgetDetailView: View {
                 .buttonStyle(.bordered)
                 
                 Button {
+                    viewModel.addCategoriesToCreateTransactionView = true
                     viewModel.showAddTransactionToBudgetCategoryView = true
                 } label: {
                     HStack {
