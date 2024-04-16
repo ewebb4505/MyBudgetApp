@@ -31,22 +31,23 @@ final class TagsMainTabViewModel: ObservableObject {
         print(tags)
     }
     
-    func createTag() async {
+    func createTag() async -> Tag? {
         loadingNewTag = true
         guard !newTagTitle.isEmpty else {
             loadingNewTag = false
-           return
+           return nil
         }
         
-        guard let _ = await tagsNetworkService.createTag(title: newTagTitle) else {
+        guard let tag = await tagsNetworkService.createTag(title: newTagTitle) else {
             errorCreatingTag = true
             loadingNewTag = false
-            return
+            return nil
         }
         
         errorCreatingTag = false
         loadingNewTag = false
         shouldDismissAddNewTagSheet = true
+        return tag
     }
     
     func deleteTag() async {

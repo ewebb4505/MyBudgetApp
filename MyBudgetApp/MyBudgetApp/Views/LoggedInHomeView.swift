@@ -7,9 +7,12 @@
 
 import Charts
 import SwiftUI
+import SwiftData
 
 struct LoggedInHomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
+    @Environment(\.modelContext) private var context
+    @Query(sort: \TagColorModel.tagID) var tagColors: [TagColorModel]
     @Binding var showingFullScreenCover: Bool
     
     var body: some View {
@@ -88,14 +91,19 @@ struct LoggedInHomeView: View {
         }
     }
     
+    // TODO: extract this into its own view
     @ChartContentBuilder
     private var tagSpendingChart: some ChartContent {
         ForEach(viewModel.allTags) { tag in
             if let amount = tag.totalAmountTracked, amount != 0 {
-                BarMark(
-                    x: .value("Shape Type", tag.title),
-                    y: .value("Total Spent", abs(amount))
-                ).foregroundStyle(.red)
+                if let tagColor = tagColors.firstIndex(where: { $0.tagID == tag.id }) {
+                    let color = tagColors[tagColor].color.uiColorMapping
+                    BarMark(x: .value("Shape Type", tag.title), y: .value("Total Spent", abs(amount)))
+                        .foregroundStyle(Color(uiColor: color))
+                } else {
+                    BarMark(x: .value("Shape Type", tag.title), y: .value("Total Spent", abs(amount)))
+                        .foregroundStyle(.black)
+                }
             }
         }
     }

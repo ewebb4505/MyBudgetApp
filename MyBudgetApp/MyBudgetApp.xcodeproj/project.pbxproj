@@ -93,6 +93,7 @@
 		01FEB3CF2BBB3BF7000F6BE6 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */; };
 		01FEB3D12BC4D80A000F6BE6 /* CheckCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */; };
 		01FEB3D32BC72DAB000F6BE6 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D22BC72DAB000F6BE6 /* Globals.swift */; };
+		01FEB3D52BCDE930000F6BE6 /* TagColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FEB3D42BCDE930000F6BE6 /* TagColorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,7 @@
 		01FEB3CE2BBB3BF7000F6BE6 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		01FEB3D02BC4D80A000F6BE6 /* CheckCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircleView.swift; sourceTree = "<group>"; };
 		01FEB3D22BC72DAB000F6BE6 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		01FEB3D42BCDE930000F6BE6 /* TagColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +370,7 @@
 			children = (
 				01028BF62B6ACB87003FCC68 /* Debug */,
 				01028BF42B6AC7F9003FCC68 /* AppEnvironmentManager.swift */,
+				01FEB3D42BCDE930000F6BE6 /* TagColorModel.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01FEB3D52BCDE930000F6BE6 /* TagColorModel.swift in Sources */,
 				0145E2882B732F1200201C06 /* MyAppDelegate.swift in Sources */,
 				018B3E972B01B689000C2054 /* TransactionDataRow.swift in Sources */,
 				0145E2A02B78082E00201C06 /* TransactionsTableView.swift in Sources */,
